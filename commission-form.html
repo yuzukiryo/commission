@@ -76,6 +76,31 @@
   textarea { min-height: 130px; resize: vertical; line-height: 1.8; }
   .select-wrap { position: relative; }
   .select-wrap::after { content: '▾'; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--gold); pointer-events: none; font-size: 13px; }
+
+  /* カスタムドロップダウン */
+  .custom-select { position: relative; }
+  .custom-select-btn {
+    width: 100%; background: #fff; border: 1px solid var(--border); border-bottom: 2px solid var(--border);
+    padding: 12px 40px 12px 16px; font-family: 'Noto Serif JP', serif; font-size: 14px; color: var(--ink);
+    cursor: pointer; text-align: left; position: relative; transition: border-color 0.2s;
+  }
+  .custom-select-btn::after { content: '▾'; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 13px; }
+  .custom-select-btn.open { border-bottom-color: var(--accent); }
+  .custom-select-btn.placeholder { color: #aaa; }
+  .custom-select-list {
+    display: none; position: absolute; top: 100%; left: 0; right: 0; z-index: 50;
+    background: #fff; border: 1px solid var(--border); border-top: none;
+    box-shadow: 0 8px 24px var(--shadow); max-height: 280px; overflow-y: auto;
+  }
+  .custom-select-list.open { display: block; }
+  .custom-select-option {
+    padding: 13px 16px; font-size: 14px; cursor: pointer;
+    border-bottom: 1px solid var(--paper-dark); transition: background 0.1s;
+  }
+  .custom-select-option:last-child { border-bottom: none; }
+  .custom-select-option:hover { background: #fdfaf5; }
+  .custom-select-option.selected { background: #fdf5f0; color: var(--accent); }
+  .custom-select input[type="hidden"] { display: none; }
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 
   .policy-box { background: var(--paper-dark); border: 1px solid var(--border); padding: 20px 22px; font-size: 12.5px; line-height: 2; color: var(--text-muted); max-height: 200px; overflow-y: auto; margin-bottom: 12px; }
@@ -225,14 +250,15 @@
       </div>
       <div class="field">
         <label class="field-label"><span class="ja">ご用件 <span class="req">*</span></span><span class="en">Purpose of Inquiry</span></label>
-        <div class="select-wrap">
-          <select name="inquiry" required>
-            <option value="" disabled selected>― お選びください / Please select ―</option>
-            <option>Commission（コミッション）</option>
-            <option>ご相談 / Inquiry</option>
-            <option>イラストについて / About my works</option>
-            <option>その他 / Other</option>
-          </select>
+        <div class="custom-select" id="inquirySelect">
+          <input type="hidden" name="inquiry" id="inquiryValue" required>
+          <button type="button" class="custom-select-btn placeholder" id="inquiryBtn" onclick="toggleSelect('inquirySelect')">― お選びください / Please select ―</button>
+          <div class="custom-select-list" id="inquiryList">
+            <div class="custom-select-option" onclick="selectOption('inquirySelect','Commission（コミッション）')">Commission（コミッション）</div>
+            <div class="custom-select-option" onclick="selectOption('inquirySelect','ご相談 / Inquiry')">ご相談 / Inquiry</div>
+            <div class="custom-select-option" onclick="selectOption('inquirySelect','イラストについて / About my works')">イラストについて / About my works</div>
+            <div class="custom-select-option" onclick="selectOption('inquirySelect','その他 / Other')">その他 / Other</div>
+          </div>
         </div>
       </div>
     </div>
@@ -482,14 +508,15 @@
       <div class="two-col">
         <div class="field">
           <label class="field-label"><span class="ja">ご希望の納品時期</span><span class="en">Preferred Timeframe</span></label>
-          <div class="select-wrap">
-            <select name="slot">
-              <option value="" disabled selected>― お選びください / Please select ―</option>
-              <option>今月中 / This month</option>
-              <option>1〜2ヶ月後 / 1–2 months</option>
-              <option>3ヶ月以降 / 3+ months</option>
-              <option>未定・相談したい / Flexible / TBD</option>
-            </select>
+          <div class="custom-select" id="slotSelect">
+            <input type="hidden" name="slot" id="slotValue">
+            <button type="button" class="custom-select-btn placeholder" id="slotBtn" onclick="toggleSelect('slotSelect')">― お選びください / Please select ―</button>
+            <div class="custom-select-list" id="slotList">
+              <div class="custom-select-option" onclick="selectOption('slotSelect','今月中 / This month')">今月中 / This month</div>
+              <div class="custom-select-option" onclick="selectOption('slotSelect','1〜2ヶ月後 / 1–2 months')">1〜2ヶ月後 / 1–2 months</div>
+              <div class="custom-select-option" onclick="selectOption('slotSelect','3ヶ月以降 / 3+ months')">3ヶ月以降 / 3+ months</div>
+              <div class="custom-select-option" onclick="selectOption('slotSelect','未定・相談したい / Flexible / TBD')">未定・相談したい / Flexible / TBD</div>
+            </div>
           </div>
         </div>
         <div class="field">
@@ -547,6 +574,37 @@
 </div>
 
 <script>
+  // カスタムドロップダウン
+  function toggleSelect(id) {
+    const wrap = document.getElementById(id);
+    const list = wrap.querySelector('.custom-select-list');
+    const btn = wrap.querySelector('.custom-select-btn');
+    const isOpen = list.classList.contains('open');
+    // 他を全部閉じる
+    document.querySelectorAll('.custom-select-list').forEach(l => l.classList.remove('open'));
+    document.querySelectorAll('.custom-select-btn').forEach(b => b.classList.remove('open'));
+    if (!isOpen) { list.classList.add('open'); btn.classList.add('open'); }
+  }
+  function selectOption(id, value) {
+    const wrap = document.getElementById(id);
+    const input = wrap.querySelector('input[type="hidden"]');
+    const btn = wrap.querySelector('.custom-select-btn');
+    const list = wrap.querySelector('.custom-select-list');
+    input.value = value;
+    btn.textContent = value;
+    btn.classList.remove('placeholder', 'open');
+    list.classList.remove('open');
+    wrap.querySelectorAll('.custom-select-option').forEach(opt => {
+      opt.classList.toggle('selected', opt.textContent === value);
+    });
+  }
+  // 外側タップで閉じる
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.custom-select')) {
+      document.querySelectorAll('.custom-select-list').forEach(l => l.classList.remove('open'));
+      document.querySelectorAll('.custom-select-btn').forEach(b => b.classList.remove('open'));
+    }
+  });
   const COUPONS = {
     'HUSKY100':  { discount: 1.00, label: '無料（100% OFF）' },
     'CHATORA50': { discount: 0.50, label: '50% OFF' },
@@ -671,7 +729,7 @@
     let ok = true;
     checks.forEach(n => { if (!this.elements[n]?.checked) ok = false; });
     texts.forEach(n => { if (!this.elements[n]?.value.trim()) ok = false; });
-    if (!this.elements['inquiry']?.value) ok = false;
+    if (!document.getElementById('inquiryValue')?.value) ok = false;
     if (!ok) { alert('必須項目をご確認ください / Please fill in all required fields.'); return; }
 
     let menuSummary = '';
@@ -684,14 +742,14 @@
     formData.append('お名前 / Name', this.elements['name'].value);
     formData.append('メールアドレス / Email', this.elements['email'].value);
     formData.append('SNSユーザー名 / SNS Handle', this.elements['sns']?.value || '未記入 / N/A');
-    formData.append('ご用件 / Purpose', this.elements['inquiry'].value);
+    formData.append('ご用件 / Purpose', document.getElementById('inquiryValue').value);
     formData.append('選択メニュー / Selected Items', menuSummary || '未選択 / None');
     formData.append('お見積もり目安 / Estimated Total', document.getElementById('totalAmount').textContent);
     formData.append('クーポンコード / Coupon', appliedCoupon ? `${appliedCoupon.code}（${appliedCoupon.label}）` : 'なし / None');
     formData.append('利用範囲 / Usage Type', this.elements['usage_type']?.value === 'commercial' ? '商用利用（要見積）/ Commercial' : '個人利用 / Personal');
     formData.append('使用用途 / Intended Use', this.elements['usage_purpose'].value);
     formData.append('ご依頼の詳細 / Request Details', this.elements['detail'].value);
-    formData.append('納品時期 / Timeframe', this.elements['slot']?.value || '未選択 / N/A');
+    formData.append('納品時期 / Timeframe', document.getElementById('slotValue')?.value || '未選択 / N/A');
     formData.append('その他ご要望 / Additional Notes', this.elements['extra']?.value || '');
     formData.append('ご意見・ご感想 / Feedback', this.elements['opinion']?.value || '');
     formData.append('_subject', `【Commission Estimate】${this.elements['name'].value}`);
