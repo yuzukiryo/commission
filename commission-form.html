@@ -283,8 +283,8 @@
         </div>
       </div>
       <div class="field">
-        <label>SNS ユーザー名 <span class="req">*</span></label>
-        <input type="text" name="sns" placeholder="例：X(@sample)、Blueskyなど">
+        <label>SNS ユーザー名</label>
+        <input type="text" name="sns" placeholder="例：X(@sample)、Bluesky など（任意）">
       </div>
       <div class="field">
         <label>ご用件 <span class="req">*</span></label>
@@ -682,7 +682,7 @@
   document.getElementById('commissionForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const checks = ['agree_caution', 'agree_terms'];
-    const texts = ['name', 'email', 'sns', 'usage_purpose', 'detail'];
+    const texts = ['name', 'email', 'usage_purpose', 'detail'];
     let ok = true;
     checks.forEach(n => { if (!this.elements[n]?.checked) ok = false; });
     texts.forEach(n => { if (!this.elements[n]?.value.trim()) ok = false; });
