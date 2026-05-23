@@ -18,198 +18,94 @@
     --shadow: rgba(26,20,16,0.12);
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  body {
-    background: var(--paper);
-    color: var(--ink);
-    font-family: 'Noto Serif JP', serif;
-    min-height: 100vh;
-    position: relative;
-    overflow-x: hidden;
-  }
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background-image:
-      repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(180,160,130,0.06) 28px, rgba(180,160,130,0.06) 29px),
-      repeating-linear-gradient(90deg, transparent, transparent 28px, rgba(180,160,130,0.04) 28px, rgba(180,160,130,0.04) 29px);
-    pointer-events: none; z-index: 0;
-  }
-  body::after {
-    content: ''; position: fixed; inset: 16px;
-    border: 1px solid var(--border);
-    pointer-events: none; z-index: 10;
-  }
-  .wrapper {
-    position: relative; z-index: 1;
-    max-width: 780px; margin: 0 auto;
-    padding: 60px 40px 80px;
-  }
+  body { background: var(--paper); color: var(--ink); font-family: 'Noto Serif JP', serif; min-height: 100vh; position: relative; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(180,160,130,0.06) 28px, rgba(180,160,130,0.06) 29px), repeating-linear-gradient(90deg, transparent, transparent 28px, rgba(180,160,130,0.04) 28px, rgba(180,160,130,0.04) 29px); pointer-events: none; z-index: 0; }
+  body::after { content: ''; position: fixed; inset: 16px; border: 1px solid var(--border); pointer-events: none; z-index: 10; }
+  .wrapper { position: relative; z-index: 1; max-width: 780px; margin: 0 auto; padding: 60px 40px 80px; }
 
-  /* Header */
   .header { text-align: center; margin-bottom: 48px; }
-  .header::before {
-    content: '✦  ✦  ✦'; display: block;
-    font-size: 10px; letter-spacing: 12px; color: var(--gold); margin-bottom: 20px;
-  }
-  .header h1 {
-    font-family: 'Shippori Mincho', serif;
-    font-size: clamp(24px, 5vw, 40px); font-weight: 800;
-    letter-spacing: 0.15em; line-height: 1.3;
-  }
-  .header h1 span {
-    display: block; font-size: 0.42em; font-weight: 400;
-    letter-spacing: 0.4em; color: var(--gold); margin-top: 8px;
-    font-family: 'DM Mono', monospace;
-  }
+  .header::before { content: '✦  ✦  ✦'; display: block; font-size: 10px; letter-spacing: 12px; color: var(--gold); margin-bottom: 20px; }
+  .header h1 { font-family: 'Shippori Mincho', serif; font-size: clamp(24px, 5vw, 40px); font-weight: 800; letter-spacing: 0.15em; line-height: 1.3; }
+  .header h1 span { display: block; font-size: 0.42em; font-weight: 400; letter-spacing: 0.4em; color: var(--gold); margin-top: 8px; font-family: 'DM Mono', monospace; }
   .header-rule { display: flex; align-items: center; gap: 16px; margin: 22px 0; }
-  .header-rule::before, .header-rule::after {
-    content: ''; flex: 1; height: 1px;
-    background: linear-gradient(to right, transparent, var(--gold), transparent);
-  }
+  .header-rule::before, .header-rule::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
   .header-rule span { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 3px; color: var(--gold); }
 
-  .estimate-banner {
-    background: #fff8f0; border: 1px solid var(--accent-muted);
-    border-left: 4px solid var(--accent);
-    padding: 16px 20px; font-size: 13px; line-height: 1.9; color: var(--ink); margin-bottom: 12px;
-  }
+  .estimate-banner { background: #fff8f0; border: 1px solid var(--accent-muted); border-left: 4px solid var(--accent); padding: 16px 20px; font-size: 13px; line-height: 1.9; color: var(--ink); margin-bottom: 12px; }
   .estimate-banner strong { color: var(--accent); }
-  .notice-box {
-    background: var(--paper-dark); border: 1px solid var(--border);
-    border-left: 3px solid var(--gold);
-    padding: 16px 20px; font-size: 12.5px; line-height: 1.9; color: var(--text-muted);
-  }
+  .notice-box { background: var(--paper-dark); border: 1px solid var(--border); border-left: 3px solid var(--gold); padding: 16px 20px; font-size: 12.5px; line-height: 1.9; color: var(--text-muted); }
 
-  /* Section */
   .section { margin-bottom: 48px; }
-  .section-title {
-    font-family: 'Shippori Mincho', serif; font-size: 13px; font-weight: 600;
-    letter-spacing: 0.4em; color: var(--gold);
-    display: flex; align-items: center; gap: 12px; margin-bottom: 24px;
-  }
+  .section-title { font-family: 'Shippori Mincho', serif; font-size: 13px; font-weight: 600; letter-spacing: 0.4em; color: var(--gold); display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
   .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, var(--border), transparent); }
 
-  /* Fields */
   .field { margin-bottom: 22px; }
-  label {
-    display: block; font-size: 12px; letter-spacing: 0.2em;
-    color: var(--text-muted); margin-bottom: 8px;
-    font-family: 'Shippori Mincho', serif;
-  }
+  label { display: block; font-size: 12px; letter-spacing: 0.2em; color: var(--text-muted); margin-bottom: 8px; font-family: 'Shippori Mincho', serif; }
   label .req { color: var(--accent); margin-left: 4px; }
-  input[type="text"], input[type="email"], input[type="date"], input[type="number"], select, textarea {
-    width: 100%; background: #fff;
-    border: 1px solid var(--border); border-bottom: 2px solid var(--border);
-    padding: 12px 16px; font-family: 'Noto Serif JP', serif; font-size: 14px;
-    color: var(--ink); outline: none;
-    transition: border-color 0.2s, box-shadow 0.2s;
-    appearance: none; -webkit-appearance: none; border-radius: 0;
-  }
-  input:focus, select:focus, textarea:focus {
-    border-color: var(--accent-muted); border-bottom-color: var(--accent);
-    box-shadow: 0 2px 0 0 var(--accent), 0 4px 16px var(--shadow);
-  }
+  input[type="text"], input[type="email"], input[type="date"], input[type="number"], select, textarea { width: 100%; background: #fff; border: 1px solid var(--border); border-bottom: 2px solid var(--border); padding: 12px 16px; font-family: 'Noto Serif JP', serif; font-size: 14px; color: var(--ink); outline: none; transition: border-color 0.2s, box-shadow 0.2s; appearance: none; -webkit-appearance: none; border-radius: 0; }
+  input:focus, select:focus, textarea:focus { border-color: var(--accent-muted); border-bottom-color: var(--accent); box-shadow: 0 2px 0 0 var(--accent), 0 4px 16px var(--shadow); }
   textarea { min-height: 130px; resize: vertical; line-height: 1.8; }
   .select-wrap { position: relative; }
   .select-wrap::after { content: '▾'; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--gold); pointer-events: none; font-size: 13px; }
   .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-  .three-col { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 16px; }
 
-  /* Policy */
-  .policy-box {
-    background: var(--paper-dark); border: 1px solid var(--border);
-    padding: 20px 22px; font-size: 12.5px; line-height: 2; color: var(--text-muted);
-    max-height: 200px; overflow-y: auto; margin-bottom: 12px;
-  }
+  .policy-box { background: var(--paper-dark); border: 1px solid var(--border); padding: 20px 22px; font-size: 12.5px; line-height: 2; color: var(--text-muted); max-height: 200px; overflow-y: auto; margin-bottom: 12px; }
   .policy-box h4 { font-family: 'Shippori Mincho', serif; font-size: 12px; letter-spacing: 0.3em; color: var(--accent); margin-bottom: 8px; margin-top: 16px; }
   .policy-box h4:first-child { margin-top: 0; }
   .policy-box::-webkit-scrollbar { width: 4px; }
   .policy-box::-webkit-scrollbar-track { background: var(--border); }
   .policy-box::-webkit-scrollbar-thumb { background: var(--gold); }
 
-  /* Pricing */
   .pricing-grid { display: grid; gap: 1px; background: var(--border); border: 1px solid var(--border); }
-  .pricing-category {
-    background: var(--paper-dark); padding: 9px 16px;
-    font-family: 'Shippori Mincho', serif; font-size: 11px;
-    letter-spacing: 0.35em; color: var(--gold);
-  }
-  .pricing-item {
-    background: #fff;
-    display: grid; grid-template-columns: auto 1fr auto auto;
-    align-items: center; padding: 13px 16px; gap: 14px;
-    cursor: pointer; transition: background 0.15s; user-select: none;
-  }
+  .pricing-category { background: var(--paper-dark); padding: 9px 16px; font-family: 'Shippori Mincho', serif; font-size: 11px; letter-spacing: 0.35em; color: var(--gold); }
+  .pricing-item { background: #fff; display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; padding: 13px 16px; gap: 14px; cursor: pointer; transition: background 0.15s; user-select: none; }
   .pricing-item:hover { background: #fdfaf5; }
   .pricing-item.selected { background: #fdf5f0; }
-  .pricing-check {
-    width: 18px; height: 18px; border: 1.5px solid var(--border);
-    display: flex; align-items: center; justify-content: center;
-    transition: all 0.15s; flex-shrink: 0;
-  }
+  .pricing-check { width: 18px; height: 18px; border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; transition: all 0.15s; flex-shrink: 0; }
   .pricing-item.selected .pricing-check { background: var(--accent); border-color: var(--accent); color: #fff; }
   .pricing-item.selected .pricing-check::after { content: '✓'; font-size: 11px; }
   .pricing-name { font-size: 13px; color: var(--ink); line-height: 1.5; }
   .pricing-name small { display: block; font-size: 11px; color: var(--text-muted); margin-top: 2px; }
   .pricing-price { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--accent); white-space: nowrap; text-align: right; }
-
-  /* Quantity input inside pricing row */
   .qty-wrap { display: none; align-items: center; gap: 6px; }
   .pricing-item.selected .qty-wrap { display: flex; }
-  .qty-wrap input[type="number"] {
-    width: 56px; padding: 5px 8px; font-size: 13px; text-align: center;
-    border: 1px solid var(--border); border-bottom: 2px solid var(--accent-muted);
-    background: #fff;
-  }
+  .qty-wrap input[type="number"] { width: 56px; padding: 5px 8px; font-size: 13px; text-align: center; border: 1px solid var(--border); border-bottom: 2px solid var(--accent-muted); background: #fff; }
   .qty-wrap span { font-size: 11px; color: var(--text-muted); white-space: nowrap; }
 
-  /* Selected summary */
-  .selected-summary {
-    display: none; padding: 14px 18px;
-    background: #fff8f0; border: 1px solid var(--accent-muted); border-top: none;
-    font-size: 12px; line-height: 2; color: var(--text-muted);
-  }
+  .selected-summary { display: none; padding: 14px 18px; background: #fff8f0; border: 1px solid var(--accent-muted); border-top: none; font-size: 12px; line-height: 2; color: var(--text-muted); }
   .selected-summary .summary-title { font-family: 'Shippori Mincho', serif; font-size: 11px; letter-spacing: 0.3em; color: var(--accent); margin-bottom: 6px; }
   .selected-summary .summary-item::before { content: '✓ '; color: var(--accent); }
 
-  .total-row {
-    background: var(--paper-dark);
-    display: flex; justify-content: space-between; align-items: center;
-    padding: 16px 20px; border: 1px solid var(--border); border-top: 2px solid var(--gold);
-  }
+  .total-row { background: var(--paper-dark); display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border: 1px solid var(--border); border-top: 2px solid var(--gold); }
   .total-label { font-family: 'Shippori Mincho', serif; font-size: 12px; letter-spacing: 0.3em; color: var(--text-muted); }
   .total-sub { font-size: 10.5px; color: var(--text-muted); margin-top: 3px; }
   .total-amount { font-family: 'DM Mono', monospace; font-size: 20px; color: var(--accent); }
+  .total-original { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--text-muted); text-decoration: line-through; margin-right: 8px; }
 
-  /* Rush note */
-  .rush-note {
-    margin-top: 12px; background: #fff8f0;
-    border: 1px solid var(--accent-muted); border-left: 3px solid var(--accent);
-    padding: 12px 16px; font-size: 12px; line-height: 1.8; color: var(--text-muted);
-  }
+  .rush-note { margin-top: 12px; background: #fff8f0; border: 1px solid var(--accent-muted); border-left: 3px solid var(--accent); padding: 12px 16px; font-size: 12px; line-height: 1.8; color: var(--text-muted); }
   .rush-note strong { color: var(--accent); }
 
-  /* Radio / Check */
+  /* Coupon */
+  .coupon-wrap { margin-top: 16px; }
+  .coupon-label { font-family: 'Shippori Mincho', serif; font-size: 12px; letter-spacing: 0.2em; color: var(--text-muted); margin-bottom: 8px; display: block; }
+  .coupon-row { display: flex; gap: 8px; }
+  .coupon-row input[type="text"] { flex: 1; text-transform: uppercase; letter-spacing: 0.1em; font-family: 'DM Mono', monospace; }
+  .coupon-btn { background: var(--ink); color: #fff; border: none; padding: 0 20px; font-family: 'Shippori Mincho', serif; font-size: 13px; letter-spacing: 0.2em; cursor: pointer; white-space: nowrap; transition: background 0.2s; flex-shrink: 0; }
+  .coupon-btn:hover { background: var(--accent); }
+  .coupon-result { margin-top: 10px; font-size: 12.5px; padding: 10px 14px; display: none; }
+  .coupon-result.success { background: #f0fff4; border: 1px solid #6dbf8b; color: #2d7a4f; display: block; }
+  .coupon-result.error { background: #fff0f0; border: 1px solid var(--accent-muted); color: var(--accent); display: block; }
+
   .check-group, .radio-group { display: flex; flex-direction: column; gap: 10px; }
   .check-item, .radio-item { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-size: 13.5px; line-height: 1.6; }
   .check-item input, .radio-item input { width: auto; margin-top: 3px; accent-color: var(--accent); flex-shrink: 0; }
 
-  /* Consent */
-  .consent-block {
-    background: #fff; border: 1px solid var(--border);
-    padding: 18px 20px; display: flex; align-items: flex-start; gap: 14px;
-    cursor: pointer; transition: background 0.15s;
-  }
+  .consent-block { background: #fff; border: 1px solid var(--border); padding: 18px 20px; display: flex; align-items: flex-start; gap: 14px; cursor: pointer; transition: background 0.15s; }
   .consent-block:hover { background: #fdfaf5; }
   .consent-block input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent); margin-top: 2px; flex-shrink: 0; cursor: pointer; }
   .consent-text { font-size: 12.5px; line-height: 1.9; color: var(--text-muted); }
 
-  /* File upload */
-  .file-drop {
-    border: 2px dashed var(--border); padding: 32px 20px;
-    text-align: center; background: #fff; cursor: pointer;
-    transition: border-color 0.2s, background 0.2s; position: relative;
-  }
+  .file-drop { border: 2px dashed var(--border); padding: 32px 20px; text-align: center; background: #fff; cursor: pointer; transition: border-color 0.2s, background 0.2s; position: relative; }
   .file-drop:hover, .file-drop.drag-over { border-color: var(--accent-muted); background: #fdf8f5; }
   .file-drop input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
   .file-drop-icon { font-size: 28px; margin-bottom: 10px; color: var(--accent-muted); }
@@ -219,21 +115,13 @@
   .file-tag { background: var(--paper-dark); border: 1px solid var(--border); padding: 4px 10px; font-size: 11px; font-family: 'DM Mono', monospace; color: var(--text-muted); display: flex; align-items: center; gap: 6px; }
   .file-tag button { background: none; border: none; cursor: pointer; color: var(--accent); font-size: 13px; padding: 0; line-height: 1; }
 
-  /* Submit */
   .submit-area { text-align: center; margin-top: 48px; padding-top: 40px; border-top: 1px solid var(--border); }
   .submit-area::before { content: '✦  ✦  ✦'; display: block; font-size: 10px; letter-spacing: 12px; color: var(--gold); margin-bottom: 24px; }
-  .submit-btn {
-    display: inline-block; background: var(--accent); color: #fff; border: none;
-    padding: 18px 64px; font-family: 'Shippori Mincho', serif; font-size: 14px;
-    letter-spacing: 0.4em; cursor: pointer;
-    transition: background 0.2s, transform 0.1s;
-    box-shadow: 4px 4px 0 var(--ink);
-  }
+  .submit-btn { display: inline-block; background: var(--accent); color: #fff; border: none; padding: 18px 64px; font-family: 'Shippori Mincho', serif; font-size: 14px; letter-spacing: 0.4em; cursor: pointer; transition: background 0.2s, transform 0.1s; box-shadow: 4px 4px 0 var(--ink); }
   .submit-btn:hover { background: #722f2f; transform: translate(-1px,-1px); box-shadow: 5px 5px 0 var(--ink); }
   .submit-btn:active { transform: translate(2px,2px); box-shadow: 2px 2px 0 var(--ink); }
   .submit-note { margin-top: 16px; font-size: 11.5px; color: var(--text-muted); letter-spacing: 0.05em; line-height: 1.8; }
 
-  /* Success */
   .success-overlay { display: none; position: fixed; inset: 0; background: rgba(245,240,232,0.97); z-index: 100; align-items: center; justify-content: center; flex-direction: column; text-align: center; padding: 40px; }
   .success-overlay.show { display: flex; }
   .success-overlay h2 { font-family: 'Shippori Mincho', serif; font-size: 28px; letter-spacing: 0.3em; color: var(--ink); margin: 24px 0 12px; }
@@ -242,19 +130,17 @@
 
   @media (max-width: 600px) {
     .wrapper { padding: 40px 20px 60px; }
-    .two-col, .three-col { grid-template-columns: 1fr; }
+    .two-col { grid-template-columns: 1fr; }
     body::after { inset: 8px; }
+    .coupon-row { flex-direction: column; }
+    .coupon-btn { padding: 12px; }
   }
 </style>
 </head>
 <body>
 <div class="wrapper">
-
   <header class="header">
-    <h1>
-      コミッション見積もりフォーム
-      <span>COMMISSION ESTIMATE REQUEST</span>
-    </h1>
+    <h1>コミッション見積もりフォーム<span>COMMISSION ESTIMATE REQUEST</span></h1>
     <div class="header-rule"><span>◆</span></div>
     <div class="estimate-banner">
       📋 このフォームは<strong>お見積もり・ご相談専用</strong>です。<br>
@@ -329,27 +215,24 @@
       <div class="section-title">03 &nbsp; ご希望のメニュー</div>
       <div class="field">
         <label>メニューを選択し、数量をご入力ください <span class="req">*</span></label>
-
         <div class="pricing-grid">
-
-          <!-- 一枚絵 -->
           <div class="pricing-category">Illustration ／ 一枚絵イラスト</div>
           <div class="pricing-item" data-price="7000" data-label="一枚絵 基本" onclick="toggleItem(this)">
             <div class="pricing-check"></div>
             <div class="pricing-name">一枚絵 基本<small>１キャラ・背景なし or 無地・フルボディ／ハーフボディ／バストアップ</small></div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="e=>e.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
+            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
             <div class="pricing-price">¥7,000</div>
           </div>
           <div class="pricing-item" data-price="3000" data-label="背景追加" onclick="toggleItem(this)">
             <div class="pricing-check"></div>
             <div class="pricing-name">背景追加<small>シンプルな背景を追加</small></div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="e=>e.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
+            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
             <div class="pricing-price">¥3,000</div>
           </div>
           <div class="pricing-item" data-price="2000" data-label="エフェクト追加" onclick="toggleItem(this)">
             <div class="pricing-check"></div>
             <div class="pricing-name">エフェクト追加<small>炎・魔法などのエフェクト</small></div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="e=>e.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
+            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
             <div class="pricing-price">¥2,000</div>
           </div>
           <div class="pricing-item" data-price="0" data-label="詳細なご要望（イラスト）" onclick="toggleItem(this)">
@@ -359,102 +242,93 @@
             <div class="pricing-price">要見積</div>
           </div>
 
-          <!-- SDキャラ -->
           <div class="pricing-category">SD / Chibi ／ デフォルメキャラ</div>
           <div class="pricing-item" data-price="3000" data-label="SDキャラ／デフォルメキャラ" onclick="toggleItem(this)">
             <div class="pricing-check"></div>
             <div class="pricing-name">SDキャラ／デフォルメキャラ<small>１キャラ・全身ポーズ・背景なし or 無地</small></div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="e=>e.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
+            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
             <div class="pricing-price">¥3,000</div>
           </div>
 
-          <!-- キャラデザ -->
           <div class="pricing-category">Character Design ／ キャラクターデザイン</div>
           <div class="pricing-item" data-price="5000" data-label="キャラクターデザイン" onclick="toggleItem(this)">
             <div class="pricing-check"></div>
             <div class="pricing-name">キャラクターデザイン<small>ヒアリング後に詳細をご相談</small></div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="e=>e.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
+            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
             <div class="pricing-price">¥5,000</div>
           </div>
 
-          <!-- SNS・配信アイテム 単品 -->
           <div class="pricing-category">SNS / Streaming Items ／ SNS・配信用アイテム（単品）</div>
           <div class="pricing-item" data-price="2500" data-label="SNSアイコン" onclick="toggleItem(this)">
             <div class="pricing-check"></div>
             <div class="pricing-name">SNSアイコン</div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="e=>e.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
+            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
             <div class="pricing-price">¥2,500</div>
           </div>
           <div class="pricing-item" data-price="3000" data-label="SNSヘッダー" onclick="toggleItem(this)">
             <div class="pricing-check"></div>
             <div class="pricing-name">SNSヘッダー</div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="e=>e.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
+            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
             <div class="pricing-price">¥3,000</div>
           </div>
           <div class="pricing-item" data-price="500" data-label="YouTubeメンバーシップ用バッジ" onclick="toggleItem(this)">
             <div class="pricing-check"></div>
             <div class="pricing-name">YouTubeメンバーシップ用バッジ<small>1種につき</small></div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="e=>e.stopPropagation()" onchange="updateTotal()"><span>種</span></div>
+            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>種</span></div>
             <div class="pricing-price">¥500</div>
           </div>
           <div class="pricing-item" data-price="1500" data-label="SNSスタンプ" onclick="toggleItem(this)">
             <div class="pricing-check"></div>
             <div class="pricing-name">SNSスタンプ<small>1種につき</small></div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="e=>e.stopPropagation()" onchange="updateTotal()"><span>種</span></div>
+            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>種</span></div>
             <div class="pricing-price">¥1,500</div>
           </div>
 
-          <!-- 配信者セット -->
           <div class="pricing-category">Streaming Set ／ 配信者セット（まとめてお得）</div>
           <div class="pricing-item" data-price="7000" data-label="配信者セット（SNSアイコン×1＋SNSヘッダー×1＋バッジ×1＋スタンプ×1）" onclick="toggleItem(this)">
             <div class="pricing-check"></div>
-            <div class="pricing-name">
-              配信者セット
-              <small>SNSアイコン×1 ＋ SNSヘッダー×1 ＋ YouTubeメンバーシップ用バッジ×1 ＋ SNSスタンプ×1　<strong style="color:var(--accent)">▶ 単品合計より¥500お得</strong></small>
-            </div>
+            <div class="pricing-name">配信者セット<small>SNSアイコン×1 ＋ SNSヘッダー×1 ＋ YouTubeメンバーシップ用バッジ×1 ＋ SNSスタンプ×1　<strong style="color:var(--accent)">▶ 単品合計より¥500お得</strong></small></div>
             <div class="qty-wrap" style="visibility:hidden"><input type="number" min="1" max="99" value="1"><span>式</span></div>
             <div class="pricing-price">¥7,000</div>
           </div>
 
-          <!-- セットオプション -->
           <div class="pricing-category">Set Options ／ 配信者セットへの追加オプション</div>
           <div class="pricing-item" data-price="1500" data-label="スタンプ追加" onclick="toggleItem(this)">
             <div class="pricing-check"></div>
             <div class="pricing-name">スタンプ追加<small>1種につき</small></div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="e=>e.stopPropagation()" onchange="updateTotal()"><span>種</span></div>
+            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>種</span></div>
             <div class="pricing-price">＋¥1,500</div>
           </div>
           <div class="pricing-item" data-price="500" data-label="バッジ追加" onclick="toggleItem(this)">
             <div class="pricing-check"></div>
             <div class="pricing-name">バッジ追加<small>1種につき</small></div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="e=>e.stopPropagation()" onchange="updateTotal()"><span>種</span></div>
+            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>種</span></div>
             <div class="pricing-price">＋¥500</div>
           </div>
           <div class="pricing-item" data-price="3000" data-label="キャラ追加（バストアップ）" onclick="toggleItem(this)">
             <div class="pricing-check"></div>
             <div class="pricing-name">キャラ追加（バストアップ）</div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="e=>e.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
+            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
             <div class="pricing-price">＋¥3,000</div>
           </div>
           <div class="pricing-item" data-price="5000" data-label="キャラ追加（全身）" onclick="toggleItem(this)">
             <div class="pricing-check"></div>
             <div class="pricing-name">キャラ追加（全身）</div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="e=>e.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
+            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
             <div class="pricing-price">＋¥5,000</div>
           </div>
           <div class="pricing-item" data-price="3000" data-label="デフォルメキャラ追加" onclick="toggleItem(this)">
             <div class="pricing-check"></div>
             <div class="pricing-name">デフォルメキャラ追加</div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="e=>e.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
+            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
             <div class="pricing-price">＋¥3,000</div>
           </div>
           <div class="pricing-item" data-price="5000" data-label="キャラクターデザイン作成（セットオプション）" onclick="toggleItem(this)">
             <div class="pricing-check"></div>
             <div class="pricing-name">キャラクターデザイン作成<small>セット制作前にキャラデザから依頼する場合</small></div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="e=>e.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
+            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
             <div class="pricing-price">＋¥5,000</div>
           </div>
-
         </div>
 
         <div class="selected-summary" id="selectedSummary">
@@ -467,11 +341,22 @@
             <div class="total-label">お見積もり目安金額</div>
             <div class="total-sub">※ 正式金額は送信後にご連絡します</div>
           </div>
-          <span class="total-amount" id="totalAmount">¥0</span>
+          <div style="text-align:right">
+            <span class="total-original" id="totalOriginal" style="display:none"></span>
+            <span class="total-amount" id="totalAmount">¥0</span>
+          </div>
         </div>
 
-        <div class="rush-note">
-          ⚡ <strong>短納期について：</strong>通常より早い納品をご希望の場合、別途料金が発生する場合があります。詳しくは送信後のご連絡時にご相談ください。
+        <div class="rush-note">⚡ <strong>短納期について：</strong>通常より早い納品をご希望の場合、別途料金が発生する場合があります。詳しくは送信後のご連絡時にご相談ください。</div>
+
+        <!-- クーポン -->
+        <div class="coupon-wrap">
+          <span class="coupon-label">🎟 クーポンコード（お持ちの方）</span>
+          <div class="coupon-row">
+            <input type="text" id="couponInput" placeholder="例：FRIEND50" maxlength="20">
+            <button type="button" class="coupon-btn" onclick="applyCoupon()">適　用</button>
+          </div>
+          <div class="coupon-result" id="couponResult"></div>
         </div>
       </div>
 
@@ -482,8 +367,7 @@
           <label class="radio-item"><input type="radio" name="usage_type" value="commercial"> 商用利用（料金は別途お見積もり・要相談）</label>
         </div>
         <div id="commercialNote" style="display:none; margin-top:10px; padding:12px 16px; background:#fff8f0; border:1px solid var(--accent-muted); border-left:3px solid var(--accent); font-size:12px; line-height:1.9; color:var(--text-muted);">
-          ⚠ 商用利用の場合、用途・規模に応じて別途料金をご提案します。<br>
-          使用用途・媒体をできるだけ詳しくご記入ください。送信後のご連絡時にお見積もりいたします。
+          ⚠ 商用利用の場合、用途・規模に応じて別途料金をご提案します。<br>使用用途・媒体をできるだけ詳しくご記入ください。送信後のご連絡時にお見積もりいたします。
         </div>
       </div>
 
@@ -573,25 +457,47 @@
         ご不明な点はSNSのDMにてお問い合わせください。
       </div>
     </div>
-
   </form>
 </div>
 
 <div class="success-overlay" id="successOverlay">
   <div class="success-icon">✓</div>
   <h2>送信しました</h2>
-  <p>
-    お見積もりのご依頼ありがとうございます。<br>
-    内容を確認のうえ、3日以内にメールにてお見積もりをご連絡いたします。<br>
-    しばらくお待ちください。
-  </p>
+  <p>お見積もりのご依頼ありがとうございます。<br>内容を確認のうえ、3日以内にメールにてお見積もりをご連絡いたします。<br>しばらくお待ちください。</p>
 </div>
 
 <script>
-  const selectedLabels = new Map(); // label -> {price, qty}
+  // ── クーポンコード定義 ──
+  const COUPONS = {
+    'HUSKY100':   { discount: 1.00, label: '無料（100%OFF）' },
+    'CHATORA50':  { discount: 0.50, label: '50%OFF' },
+    'WOLF30':     { discount: 0.30, label: '30%OFF' },
+    'SHIBA10':    { discount: 0.10, label: '10%OFF' },
+    'ORIONVIP':   { discount: 0.40, label: '常連様特別割引（40%OFF）' },
+  };
+  let appliedCoupon = null;
+
+  function applyCoupon() {
+    const code = document.getElementById('couponInput').value.trim().toUpperCase();
+    const result = document.getElementById('couponResult');
+    if (!code) { result.className = 'coupon-result error'; result.textContent = 'コードを入力してください。'; return; }
+    if (COUPONS[code]) {
+      appliedCoupon = { code, ...COUPONS[code] };
+      result.className = 'coupon-result success';
+      result.textContent = `✓ クーポン「${code}」が適用されました（${COUPONS[code].label}）`;
+      updateTotal();
+    } else {
+      appliedCoupon = null;
+      result.className = 'coupon-result error';
+      result.textContent = '✕ クーポンコードが正しくありません。';
+      updateTotal();
+    }
+  }
+
+  // ── 料金計算 ──
+  const selectedLabels = new Map();
 
   function toggleItem(el) {
-    // prevent triggering from qty input clicks
     el.classList.toggle('selected');
     const price = parseInt(el.dataset.price) || 0;
     const label = el.dataset.label;
@@ -606,7 +512,6 @@
   }
 
   function updateTotal() {
-    // re-read all qty values
     document.querySelectorAll('.pricing-item.selected').forEach(el => {
       const label = el.dataset.label;
       const price = parseInt(el.dataset.price) || 0;
@@ -614,9 +519,21 @@
       const qty = qtyInput ? parseInt(qtyInput.value)||1 : 1;
       selectedLabels.set(label, { price, qty });
     });
-    let total = 0;
-    selectedLabels.forEach(v => { total += v.price * v.qty; });
-    document.getElementById('totalAmount').textContent = total > 0 ? '¥' + total.toLocaleString('ja-JP') : '¥0';
+    let subtotal = 0;
+    selectedLabels.forEach(v => { subtotal += v.price * v.qty; });
+
+    const amountEl = document.getElementById('totalAmount');
+    const originalEl = document.getElementById('totalOriginal');
+
+    if (appliedCoupon && subtotal > 0) {
+      const discounted = Math.floor(subtotal * (1 - appliedCoupon.discount));
+      originalEl.style.display = 'inline';
+      originalEl.textContent = '¥' + subtotal.toLocaleString('ja-JP');
+      amountEl.textContent = discounted === 0 ? '¥0（無料）' : '¥' + discounted.toLocaleString('ja-JP');
+    } else {
+      originalEl.style.display = 'none';
+      amountEl.textContent = subtotal > 0 ? '¥' + subtotal.toLocaleString('ja-JP') : '¥0';
+    }
     updateSummary();
   }
 
@@ -626,29 +543,34 @@
     if (selectedLabels.size === 0) { summary.style.display = 'none'; return; }
     summary.style.display = 'block';
     let html = '';
-    selectedLabels.forEach((v, label) => {
-      html += `<div class="summary-item">${label}${v.qty > 1 ? ' × ' + v.qty : ''}</div>`;
-    });
+    selectedLabels.forEach((v, label) => { html += `<div class="summary-item">${label}${v.qty > 1 ? ' × ' + v.qty : ''}</div>`; });
     list.innerHTML = html;
   }
 
-  // Stop number input clicks from toggling the row
   document.querySelectorAll('.qty-wrap input[type="number"]').forEach(input => {
     input.addEventListener('click', e => e.stopPropagation());
     input.addEventListener('change', updateTotal);
   });
 
-  // File upload
+  // クーポン入力でEnterキー対応
+  document.getElementById('couponInput').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); applyCoupon(); } });
+
+  // 商用利用注記
+  document.querySelectorAll('input[name="usage_type"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+      document.getElementById('commercialNote').style.display = this.value === 'commercial' ? 'block' : 'none';
+    });
+  });
+
+  // ファイルアップロード
   const fileInput = document.getElementById('fileInput');
   const fileDrop = document.getElementById('fileDrop');
   const fileList = document.getElementById('fileList');
   let selectedFiles = [];
-
   fileInput.addEventListener('change', e => handleFilesFromList(e.target.files));
   fileDrop.addEventListener('dragover', e => { e.preventDefault(); fileDrop.classList.add('drag-over'); });
   fileDrop.addEventListener('dragleave', () => fileDrop.classList.remove('drag-over'));
   fileDrop.addEventListener('drop', e => { e.preventDefault(); fileDrop.classList.remove('drag-over'); handleFilesFromList(e.dataTransfer.files); });
-
   function handleFilesFromList(files) {
     Array.from(files).forEach(f => {
       if (selectedFiles.length >= 5) return;
@@ -671,14 +593,7 @@
 
   document.getElementById('deadline').min = new Date().toISOString().split('T')[0];
 
-  // Show commercial note when commercial is selected
-  document.querySelectorAll('input[name="usage_type"]').forEach(radio => {
-    radio.addEventListener('change', function() {
-      document.getElementById('commercialNote').style.display =
-        this.value === 'commercial' ? 'block' : 'none';
-    });
-  });
-
+  // 送信
   document.getElementById('commissionForm').addEventListener('submit', async function(e) {
     e.preventDefault();
     const checks = ['agree_caution', 'agree_terms'];
@@ -689,24 +604,20 @@
     if (!this.elements['inquiry']?.value) ok = false;
     if (!ok) { alert('必須項目をご確認ください（＊マークの項目と同意チェック）'); return; }
 
-    // Build selected menu summary for email
     let menuSummary = '';
-    selectedLabels.forEach((v, label) => {
-      menuSummary += `${label}${v.qty > 1 ? ' × ' + v.qty : ''}\n`;
-    });
-    const total = document.getElementById('totalAmount').textContent;
+    selectedLabels.forEach((v, label) => { menuSummary += `${label}${v.qty > 1 ? ' × ' + v.qty : ''}\n`; });
 
     const btn = document.querySelector('.submit-btn');
-    btn.textContent = '送信中...';
-    btn.disabled = true;
+    btn.textContent = '送信中...'; btn.disabled = true;
 
     const formData = new FormData();
     formData.append('お名前', this.elements['name'].value);
     formData.append('メールアドレス', this.elements['email'].value);
-    formData.append('SNSユーザー名', this.elements['sns'].value);
+    formData.append('SNSユーザー名', this.elements['sns']?.value || '未記入');
     formData.append('ご用件', this.elements['inquiry'].value);
     formData.append('選択メニュー', menuSummary || '未選択');
-    formData.append('お見積もり目安', total);
+    formData.append('お見積もり目安', document.getElementById('totalAmount').textContent);
+    formData.append('クーポンコード', appliedCoupon ? `${appliedCoupon.code}（${appliedCoupon.label}）` : 'なし');
     formData.append('利用範囲', this.elements['usage_type']?.value === 'commercial' ? '商用利用（要見積）' : '個人利用');
     formData.append('使用用途', this.elements['usage_purpose'].value);
     formData.append('ご依頼の詳細', this.elements['detail'].value);
@@ -715,30 +626,20 @@
     formData.append('ご意見・ご感想', this.elements['opinion']?.value || '');
     formData.append('_subject', `【コミッション見積もり依頼】${this.elements['name'].value} 様`);
     formData.append('_language', 'ja');
-
-    // Attach images if any
-    selectedFiles.forEach((f, i) => {
-      formData.append(`参考画像${i+1}`, f);
-    });
+    selectedFiles.forEach((f, i) => { formData.append(`参考画像${i+1}`, f); });
 
     try {
-      const res = await fetch('https://formspree.io/f/mgoqygev', {
-        method: 'POST',
-        body: formData,
-        headers: { 'Accept': 'application/json' }
-      });
+      const res = await fetch('https://formspree.io/f/mgoqygev', { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } });
       if (res.ok) {
         document.getElementById('successOverlay').classList.add('show');
         window.scrollTo(0,0);
       } else {
         alert('送信に失敗しました。お手数ですがSNSのDMにてご連絡ください。');
-        btn.textContent = '見積もり依頼を送信';
-        btn.disabled = false;
+        btn.textContent = '見積もり依頼を送信'; btn.disabled = false;
       }
     } catch(err) {
       alert('通信エラーが発生しました。お手数ですがSNSのDMにてご連絡ください。');
-      btn.textContent = '見積もり依頼を送信';
-      btn.disabled = false;
+      btn.textContent = '見積もり依頼を送信'; btn.disabled = false;
     }
   });
 </script>
