@@ -631,10 +631,6 @@
         <label class="field-label"><span class="ja">その他ご要望・メッセージ</span><span class="en">Additional Notes / Message</span></label>
         <textarea name="extra" placeholder="ご自由にどうぞ / Feel free to write anything"></textarea>
       </div>
-      <div class="field">
-        <label class="field-label"><span class="ja">ご意見・ご感想（任意）</span><span class="en">Feedback (optional)</span></label>
-        <textarea name="opinion" placeholder="サービスへのご意見・ご感想など / Any feedback about my services"></textarea>
-      </div>
     </div>
 
     <!-- 05 同意 -->
@@ -963,7 +959,6 @@
       formData.append('ご依頼の詳細 / Request Details', form.elements['detail'].value);
       formData.append('納品時期 / Timeframe', document.getElementById('slotValue')?.value || '未選択 / N/A');
       formData.append('その他ご要望 / Additional Notes', form.elements['extra']?.value || '');
-      formData.append('ご意見・ご感想 / Feedback', form.elements['opinion']?.value || '');
       selectedFiles.forEach((f, i) => { formData.append(`参考画像${i+1} / Ref Image ${i+1}`, f); });
     } else {
       formData.append('メッセージ / Message', document.getElementById('messageOnlyText').value);
