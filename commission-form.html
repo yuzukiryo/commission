@@ -331,9 +331,10 @@
           <input type="hidden" name="category" id="categoryValue">
           <button type="button" class="custom-select-btn placeholder" onclick="toggleSelect('categorySelect')">― カテゴリを選んでください / Please select a category ―</button>
           <div class="custom-select-list" id="categoryList">
-            <div class="custom-select-option" onclick="selectCategory('illust')">🎨 一枚絵イラスト / Illustration</div>
+            <div class="custom-select-option" onclick="selectCategory('illust')">🎨 イラスト（一枚絵）/ Illustration</div>
+            <div class="custom-select-option" onclick="selectCategory('chibi')">🐾 デフォルメキャラ / Chibi Character</div>
+            <div class="custom-select-option" onclick="selectCategory('charadesign')">✏️ キャラクターデザイン / Character Design</div>
             <div class="custom-select-option" onclick="selectCategory('sns')">📱 SNS・配信アイテム / SNS &amp; Streaming Items</div>
-            <div class="custom-select-option" onclick="selectCategory('chibi')">🐾 デフォルメ・キャラデザ / Chibi &amp; Character Design</div>
           </div>
         </div>
       </div>
@@ -462,7 +463,7 @@
         </div>
       </div>
 
-      <!-- デフォルメ・キャラデザ -->
+      <!-- デフォルメキャラ -->
       <div id="grid-chibi" style="display:none">
         <div class="field">
           <label class="field-label"><span class="ja">メニューを選択し、数量をご入力ください</span><span class="en">Select items and enter quantity</span></label>
@@ -470,16 +471,37 @@
             <div class="pricing-category">SD / Chibi ／ デフォルメキャラ</div>
             <div class="pricing-item" data-price="3000" data-label="SDキャラ／デフォルメキャラ / SD Chibi Character" onclick="toggleItem(this)">
               <div class="pricing-check"></div>
-              <div class="pricing-name">SDキャラ／デフォルメキャラ<span class="en">SD / Chibi Character</span><small>１キャラ・全身・背景なし or 無地 / 1 character, full body, no bg</small></div>
+              <div class="pricing-name">デフォルメキャラ<span class="en">Chibi Character</span><small>１キャラ・全身・背景なし or 無地 / 1 character, full body, no bg</small></div>
               <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
               <div class="pricing-price">¥3,000</div>
             </div>
+            <div class="pricing-item" data-price="0" data-label="詳細なご要望（デフォルメキャラ）/ Custom Chibi Request" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">詳細なご要望（デフォルメキャラ）<span class="en">Custom / Complex Chibi Request</span><small>複数キャラ・複雑なポーズなど / Multiple chars, complex pose — quote after discussion</small></div>
+              <div class="qty-wrap" style="visibility:hidden"><input type="number" min="1" max="99" value="1"><span>体</span></div>
+              <div class="pricing-price">要見積 / Quote</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- キャラクターデザイン -->
+      <div id="grid-charadesign" style="display:none">
+        <div class="field">
+          <label class="field-label"><span class="ja">メニューを選択し、数量をご入力ください</span><span class="en">Select items and enter quantity</span></label>
+          <div class="pricing-grid">
             <div class="pricing-category">Character Design ／ キャラクターデザイン</div>
             <div class="pricing-item" data-price="5000" data-label="キャラクターデザイン / Character Design" onclick="toggleItem(this)">
               <div class="pricing-check"></div>
               <div class="pricing-name">キャラクターデザイン<span class="en">Character Design</span><small>ヒアリング後に詳細をご相談 / Details discussed after inquiry</small></div>
               <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
               <div class="pricing-price">¥5,000</div>
+            </div>
+            <div class="pricing-item" data-price="0" data-label="詳細なご要望（キャラクターデザイン）/ Custom Character Design Request" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">詳細なご要望（キャラクターデザイン）<span class="en">Custom / Complex Character Design</span><small>複雑なデザインなど / Complex design — quote after discussion</small></div>
+              <div class="qty-wrap" style="visibility:hidden"><input type="number" min="1" max="99" value="1"><span>体</span></div>
+              <div class="pricing-price">要見積 / Quote</div>
             </div>
           </div>
         </div>
@@ -680,7 +702,7 @@
     document.getElementById('categoryList').classList.remove('open');
     document.querySelector('#categorySelect .custom-select-btn').classList.remove('open');
     // グリッド切り替え（選択済みアイテムをリセット）
-    ['illust','sns','chibi'].forEach(c => {
+    ['illust','sns','chibi','charadesign'].forEach(c => {
       const el = document.getElementById('grid-' + c);
       if (c !== cat) {
         // 非表示にする前に選択を解除
