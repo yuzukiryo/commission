@@ -326,158 +326,187 @@
     <div class="section" id="sectionMenu">
       <div class="section-title">03 &nbsp; ご希望のメニュー <span class="en">/ Menu &amp; Pricing</span></div>
       <div class="field">
-        <label class="field-label"><span class="ja">メニューを選択し、数量をご入力ください <span class="req">*</span></span><span class="en">Select items and enter quantity</span></label>
-        <div class="pricing-grid">
-
-          <div class="pricing-category">Illustration ／ 一枚絵イラスト</div>
-          <div class="pricing-item" data-price="5000" data-label="一枚絵 バストアップ / Illustration — Bust Up" onclick="toggleItem(this)">
-            <div class="pricing-check"></div>
-            <div class="pricing-name">一枚絵 バストアップ<span class="en">Illustration — Bust Up</span><small>１キャラ・背景なし or 無地 / 1 character, no bg</small></div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
-            <div class="pricing-price">¥5,000</div>
-          </div>
-          <div class="pricing-item" data-price="6000" data-label="一枚絵 ハーフボディ / Illustration — Half Body" onclick="toggleItem(this)">
-            <div class="pricing-check"></div>
-            <div class="pricing-name">一枚絵 ハーフボディ<span class="en">Illustration — Half Body</span><small>１キャラ・背景なし or 無地 / 1 character, no bg</small></div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
-            <div class="pricing-price">¥6,000</div>
-          </div>
-          <div class="pricing-item" data-price="7000" data-label="一枚絵 フルボディ / Illustration — Full Body" onclick="toggleItem(this)">
-            <div class="pricing-check"></div>
-            <div class="pricing-name">一枚絵 フルボディ<span class="en">Illustration — Full Body</span><small>１キャラ・背景なし or 無地 / 1 character, no bg</small></div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
-            <div class="pricing-price">¥7,000</div>
-          </div>
-          <div class="pricing-item" data-price="3000" data-label="背景追加 / Background Add-on" onclick="toggleItem(this)">
-            <div class="pricing-check"></div>
-            <div class="pricing-name">背景追加<span class="en">Background Add-on</span><small>シンプルな背景を追加 / Simple background</small></div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
-            <div class="pricing-price">¥3,000</div>
-          </div>
-          <div class="pricing-item" data-price="2000" data-label="エフェクト追加 / Effects Add-on" onclick="toggleItem(this)">
-            <div class="pricing-check"></div>
-            <div class="pricing-name">エフェクト追加<span class="en">Effects Add-on</span><small>炎・魔法などのエフェクト / Fire, magic, etc.</small></div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
-            <div class="pricing-price">¥2,000</div>
-          </div>
-          <div class="pricing-item" data-price="0" data-label="詳細なご要望（イラスト）/ Custom Illustration Request" onclick="toggleItem(this)">
-            <div class="pricing-check"></div>
-            <div class="pricing-name">詳細なご要望（イラスト）<span class="en">Custom / Complex Request</span><small>複雑な構図・複数キャラなど ／ ヒアリング後にお見積もり / Multiple chars, complex comp — quote after discussion</small></div>
-            <div class="qty-wrap" style="visibility:hidden"><input type="number" min="1" max="99" value="1"><span>点</span></div>
-            <div class="pricing-price">要見積 / Quote</div>
-          </div>
-
-          <div class="pricing-category">SD / Chibi ／ デフォルメキャラ</div>
-          <div class="pricing-item" data-price="3000" data-label="SDキャラ／デフォルメキャラ / SD Chibi Character" onclick="toggleItem(this)">
-            <div class="pricing-check"></div>
-            <div class="pricing-name">SDキャラ／デフォルメキャラ<span class="en">SD / Chibi Character</span><small>１キャラ・全身・背景なし or 無地 / 1 character, full body, no bg</small></div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
-            <div class="pricing-price">¥3,000</div>
-          </div>
-
-          <div class="pricing-category">Character Design ／ キャラクターデザイン</div>
-          <div class="pricing-item" data-price="5000" data-label="キャラクターデザイン / Character Design" onclick="toggleItem(this)">
-            <div class="pricing-check"></div>
-            <div class="pricing-name">キャラクターデザイン<span class="en">Character Design</span><small>ヒアリング後に詳細をご相談 / Details discussed after inquiry</small></div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
-            <div class="pricing-price">¥5,000</div>
-          </div>
-
-          <div class="pricing-category">SNS / Streaming Items ／ SNS・配信用アイテム（単品）</div>
-          <div class="pricing-item" data-price="2500" data-label="SNSアイコン / SNS Icon" onclick="toggleItem(this)">
-            <div class="pricing-check"></div>
-            <div class="pricing-name">SNSアイコン<span class="en">SNS Icon</span></div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
-            <div class="pricing-price">¥2,500</div>
-          </div>
-          <div class="pricing-item" data-price="3000" data-label="SNSヘッダー / SNS Header" onclick="toggleItem(this)">
-            <div class="pricing-check"></div>
-            <div class="pricing-name">SNSヘッダー<span class="en">SNS Header / Banner</span></div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
-            <div class="pricing-price">¥3,000</div>
-          </div>
-          <div class="pricing-item" data-price="500" data-label="YouTubeメンバーシップ用バッジ / YT Membership Badge" onclick="toggleItem(this)">
-            <div class="pricing-check"></div>
-            <div class="pricing-name">YouTubeメンバーシップ用バッジ<span class="en">YouTube Membership Badge</span><small>1種につき / per design</small></div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>種</span></div>
-            <div class="pricing-price">¥500</div>
-          </div>
-          <div class="pricing-item" data-price="1500" data-label="SNSスタンプ / SNS Sticker" onclick="toggleItem(this)">
-            <div class="pricing-check"></div>
-            <div class="pricing-name">SNSスタンプ<span class="en">SNS Sticker / Emote</span><small>1種につき / per design</small></div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>種</span></div>
-            <div class="pricing-price">¥1,500</div>
-          </div>
-
-          <div class="pricing-category">Streaming Set ／ 配信者セット（まとめてお得）</div>
-          <div class="pricing-item" data-price="7000" data-label="配信者セット / Streamer Full Set" onclick="toggleItem(this)">
-            <div class="pricing-check"></div>
-            <div class="pricing-name">配信者セット<span class="en">Streamer Full Set</span><small>SNSアイコン×1 ＋ SNSヘッダー×1 ＋ バッジ×1 ＋ スタンプ×1　<strong style="color:var(--accent)">▶ 単品合計より¥500お得 / Save ¥500</strong></small></div>
-            <div class="qty-wrap" style="visibility:hidden"><input type="number" min="1" max="99" value="1"><span>式</span></div>
-            <div class="pricing-price">¥7,000</div>
-          </div>
-
-          <div class="pricing-category">Set Options ／ 配信者セットへの追加オプション</div>
-          <div class="pricing-item" data-price="1500" data-label="スタンプ追加 / Extra Sticker" onclick="toggleItem(this)">
-            <div class="pricing-check"></div>
-            <div class="pricing-name">スタンプ追加<span class="en">Extra Sticker / Emote</span><small>1種につき / per design</small></div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>種</span></div>
-            <div class="pricing-price">＋¥1,500</div>
-          </div>
-          <div class="pricing-item" data-price="500" data-label="バッジ追加 / Extra Badge" onclick="toggleItem(this)">
-            <div class="pricing-check"></div>
-            <div class="pricing-name">バッジ追加<span class="en">Extra Badge</span><small>1種につき / per design</small></div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>種</span></div>
-            <div class="pricing-price">＋¥500</div>
-          </div>
-          <div class="pricing-item" data-price="3000" data-label="キャラ追加（バストアップ）/ Extra Character (Bust)" onclick="toggleItem(this)">
-            <div class="pricing-check"></div>
-            <div class="pricing-name">キャラ追加（バストアップ）<span class="en">Extra Character — Bust Up</span></div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
-            <div class="pricing-price">＋¥3,000</div>
-          </div>
-          <div class="pricing-item" data-price="5000" data-label="キャラ追加（全身）/ Extra Character (Full Body)" onclick="toggleItem(this)">
-            <div class="pricing-check"></div>
-            <div class="pricing-name">キャラ追加（全身）<span class="en">Extra Character — Full Body</span></div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
-            <div class="pricing-price">＋¥5,000</div>
-          </div>
-          <div class="pricing-item" data-price="3000" data-label="デフォルメキャラ追加 / Extra Chibi" onclick="toggleItem(this)">
-            <div class="pricing-check"></div>
-            <div class="pricing-name">デフォルメキャラ追加<span class="en">Extra Chibi Character</span></div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
-            <div class="pricing-price">＋¥3,000</div>
-          </div>
-          <div class="pricing-item" data-price="5000" data-label="キャラクターデザイン作成（セットオプション）/ Character Design (Set Option)" onclick="toggleItem(this)">
-            <div class="pricing-check"></div>
-            <div class="pricing-name">キャラクターデザイン作成<span class="en">Character Design — Set Add-on</span><small>セット制作前にキャラデザから依頼する場合 / If you need a design before the set</small></div>
-            <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
-            <div class="pricing-price">＋¥5,000</div>
+        <label class="field-label"><span class="ja">ジャンルを選択 <span class="req">*</span></span><span class="en">Select a category</span></label>
+        <div class="custom-select" id="categorySelect">
+          <input type="hidden" name="category" id="categoryValue">
+          <button type="button" class="custom-select-btn placeholder" onclick="toggleSelect('categorySelect')">― カテゴリを選んでください / Please select a category ―</button>
+          <div class="custom-select-list" id="categoryList">
+            <div class="custom-select-option" onclick="selectCategory('illust')">🎨 一枚絵イラスト / Illustration</div>
+            <div class="custom-select-option" onclick="selectCategory('sns')">📱 SNS・配信アイテム / SNS &amp; Streaming Items</div>
+            <div class="custom-select-option" onclick="selectCategory('chibi')">🐾 デフォルメ・キャラデザ / Chibi &amp; Character Design</div>
           </div>
         </div>
+      </div>
 
-        <div class="selected-summary" id="selectedSummary">
-          <div class="summary-title">選択中のメニュー / Selected Items</div>
-          <div id="selectedList"></div>
-        </div>
-
-        <div class="total-row">
-          <div>
-            <div class="total-label">お見積もり目安金額<span class="en">Estimated Total</span></div>
-            <div class="total-sub">※ 正式金額は送信後にご連絡します / Final price confirmed after inquiry</div>
+      <!-- 一枚絵 -->
+      <div id="grid-illust" style="display:none">
+        <div class="field">
+          <label class="field-label"><span class="ja">メニューを選択し、数量をご入力ください</span><span class="en">Select items and enter quantity</span></label>
+          <div class="pricing-grid">
+            <div class="pricing-category">Illustration ／ 一枚絵イラスト</div>
+            <div class="pricing-item" data-price="5000" data-label="一枚絵 バストアップ / Illustration — Bust Up" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">一枚絵 バストアップ<span class="en">Illustration — Bust Up</span><small>１キャラ・背景なし or 無地 / 1 character, no bg</small></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
+              <div class="pricing-price">¥5,000</div>
+            </div>
+            <div class="pricing-item" data-price="6000" data-label="一枚絵 ハーフボディ / Illustration — Half Body" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">一枚絵 ハーフボディ<span class="en">Illustration — Half Body</span><small>１キャラ・背景なし or 無地 / 1 character, no bg</small></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
+              <div class="pricing-price">¥6,000</div>
+            </div>
+            <div class="pricing-item" data-price="7000" data-label="一枚絵 フルボディ / Illustration — Full Body" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">一枚絵 フルボディ<span class="en">Illustration — Full Body</span><small>１キャラ・背景なし or 無地 / 1 character, no bg</small></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
+              <div class="pricing-price">¥7,000</div>
+            </div>
+            <div class="pricing-item" data-price="3000" data-label="背景追加 / Background Add-on" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">背景追加<span class="en">Background Add-on</span><small>シンプルな背景を追加 / Simple background</small></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
+              <div class="pricing-price">¥3,000</div>
+            </div>
+            <div class="pricing-item" data-price="2000" data-label="エフェクト追加 / Effects Add-on" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">エフェクト追加<span class="en">Effects Add-on</span><small>炎・魔法などのエフェクト / Fire, magic, etc.</small></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
+              <div class="pricing-price">¥2,000</div>
+            </div>
+            <div class="pricing-item" data-price="0" data-label="詳細なご要望（イラスト）/ Custom Illustration Request" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">詳細なご要望（イラスト）<span class="en">Custom / Complex Request</span><small>複雑な構図・複数キャラなど / Multiple chars, complex comp — quote after discussion</small></div>
+              <div class="qty-wrap" style="visibility:hidden"><input type="number" min="1" max="99" value="1"><span>点</span></div>
+              <div class="pricing-price">要見積 / Quote</div>
+            </div>
           </div>
-          <div style="text-align:right">
-            <span class="total-original" id="totalOriginal" style="display:none"></span>
-            <span class="total-amount" id="totalAmount">¥0</span>
+        </div>
+      </div>
+
+      <!-- SNS・配信 -->
+      <div id="grid-sns" style="display:none">
+        <div class="field">
+          <label class="field-label"><span class="ja">メニューを選択し、数量をご入力ください</span><span class="en">Select items and enter quantity</span></label>
+          <div class="pricing-grid">
+            <div class="pricing-category">SNS / Streaming Items ／ 単品</div>
+            <div class="pricing-item" data-price="2500" data-label="SNSアイコン / SNS Icon" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">SNSアイコン<span class="en">SNS Icon</span></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
+              <div class="pricing-price">¥2,500</div>
+            </div>
+            <div class="pricing-item" data-price="3000" data-label="SNSヘッダー / SNS Header" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">SNSヘッダー<span class="en">SNS Header / Banner</span></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
+              <div class="pricing-price">¥3,000</div>
+            </div>
+            <div class="pricing-item" data-price="500" data-label="YouTubeメンバーシップ用バッジ / YT Membership Badge" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">YouTubeメンバーシップ用バッジ<span class="en">YouTube Membership Badge</span><small>1種につき / per design</small></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>種</span></div>
+              <div class="pricing-price">¥500</div>
+            </div>
+            <div class="pricing-item" data-price="1500" data-label="SNSスタンプ / SNS Sticker" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">SNSスタンプ<span class="en">SNS Sticker / Emote</span><small>1種につき / per design</small></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>種</span></div>
+              <div class="pricing-price">¥1,500</div>
+            </div>
+            <div class="pricing-category">Streaming Set ／ 配信者セット（まとめてお得）</div>
+            <div class="pricing-item" data-price="7000" data-label="配信者セット / Streamer Full Set" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">配信者セット<span class="en">Streamer Full Set</span><small>SNSアイコン×1 ＋ SNSヘッダー×1 ＋ バッジ×1 ＋ スタンプ×1　<strong style="color:var(--accent)">▶ 単品合計より¥500お得 / Save ¥500</strong></small></div>
+              <div class="qty-wrap" style="visibility:hidden"><input type="number" min="1" max="99" value="1"><span>式</span></div>
+              <div class="pricing-price">¥7,000</div>
+            </div>
+            <div class="pricing-category">Set Options ／ 追加オプション</div>
+            <div class="pricing-item" data-price="1500" data-label="スタンプ追加 / Extra Sticker" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">スタンプ追加<span class="en">Extra Sticker / Emote</span><small>1種につき / per design</small></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>種</span></div>
+              <div class="pricing-price">＋¥1,500</div>
+            </div>
+            <div class="pricing-item" data-price="500" data-label="バッジ追加 / Extra Badge" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">バッジ追加<span class="en">Extra Badge</span><small>1種につき / per design</small></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>種</span></div>
+              <div class="pricing-price">＋¥500</div>
+            </div>
+            <div class="pricing-item" data-price="3000" data-label="キャラ追加（バストアップ）/ Extra Character (Bust)" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">キャラ追加（バストアップ）<span class="en">Extra Character — Bust Up</span></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
+              <div class="pricing-price">＋¥3,000</div>
+            </div>
+            <div class="pricing-item" data-price="5000" data-label="キャラ追加（全身）/ Extra Character (Full Body)" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">キャラ追加（全身）<span class="en">Extra Character — Full Body</span></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
+              <div class="pricing-price">＋¥5,000</div>
+            </div>
+            <div class="pricing-item" data-price="3000" data-label="デフォルメキャラ追加 / Extra Chibi" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">デフォルメキャラ追加<span class="en">Extra Chibi Character</span></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
+              <div class="pricing-price">＋¥3,000</div>
+            </div>
+            <div class="pricing-item" data-price="5000" data-label="キャラクターデザイン作成（セットオプション）/ Character Design (Set Option)" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">キャラクターデザイン作成<span class="en">Character Design — Set Add-on</span><small>セット制作前にキャラデザから依頼する場合 / If you need a design before the set</small></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
+              <div class="pricing-price">＋¥5,000</div>
+            </div>
           </div>
         </div>
+      </div>
 
-        <div style="margin-top:12px; padding:10px 16px; background:#f8f4ee; border:1px solid var(--border); font-family:'DM Mono',monospace; font-size:11.5px; color:var(--text-muted); line-height:1.8;">
-          💱 Prices are listed in JPY (Japanese Yen). Please check the current exchange rate before inquiring.
+      <!-- デフォルメ・キャラデザ -->
+      <div id="grid-chibi" style="display:none">
+        <div class="field">
+          <label class="field-label"><span class="ja">メニューを選択し、数量をご入力ください</span><span class="en">Select items and enter quantity</span></label>
+          <div class="pricing-grid">
+            <div class="pricing-category">SD / Chibi ／ デフォルメキャラ</div>
+            <div class="pricing-item" data-price="3000" data-label="SDキャラ／デフォルメキャラ / SD Chibi Character" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">SDキャラ／デフォルメキャラ<span class="en">SD / Chibi Character</span><small>１キャラ・全身・背景なし or 無地 / 1 character, full body, no bg</small></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
+              <div class="pricing-price">¥3,000</div>
+            </div>
+            <div class="pricing-category">Character Design ／ キャラクターデザイン</div>
+            <div class="pricing-item" data-price="5000" data-label="キャラクターデザイン / Character Design" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">キャラクターデザイン<span class="en">Character Design</span><small>ヒアリング後に詳細をご相談 / Details discussed after inquiry</small></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
+              <div class="pricing-price">¥5,000</div>
+            </div>
+          </div>
         </div>
+      </div>
 
-        <div class="rush-note">
-          ⚡ <strong>短納期について / Rush Orders:</strong> 通常より早い納品をご希望の場合、別途料金が発生する場合があります。
+      <div class="selected-summary" id="selectedSummary">
+        <div class="summary-title">選択中のメニュー / Selected Items</div>
+        <div id="selectedList"></div>
+      </div>
+
+      <div class="total-row">
+        <div>
+          <div class="total-label">お見積もり目安金額<span class="en">Estimated Total</span></div>
+          <div class="total-sub">※ 正式金額は送信後にご連絡します / Final price confirmed after inquiry</div>
+        </div>
+        <div style="text-align:right">
+          <span class="total-original" id="totalOriginal" style="display:none"></span>
+          <span class="total-amount" id="totalAmount">¥0</span>
+        </div>
+      </div>
+
+      <div style="margin-top:12px; padding:10px 16px; background:#f8f4ee; border:1px solid var(--border); font-family:'DM Mono',monospace; font-size:11.5px; color:var(--text-muted); line-height:1.8;">
+        💱 Prices are listed in JPY (Japanese Yen). Please check the current exchange rate before inquiring.
+      </div>
+
+      <div class="rush-note">
+        ⚡ <strong>短納期について / Rush Orders:</strong> 通常より早い納品をご希望の場合、別途料金が発生する場合があります。
           <span class="en">Rush fees may apply for expedited delivery. Details will be discussed after inquiry.</span>
         </div>
 
@@ -646,7 +675,29 @@
 </div>
 
 <script>
-  // カスタムドロップダウン
+  function selectCategory(cat) {
+    // ドロップダウンを閉じる
+    document.getElementById('categoryList').classList.remove('open');
+    document.querySelector('#categorySelect .custom-select-btn').classList.remove('open');
+    // グリッド切り替え（選択済みアイテムをリセット）
+    ['illust','sns','chibi'].forEach(c => {
+      const el = document.getElementById('grid-' + c);
+      if (c !== cat) {
+        // 非表示にする前に選択を解除
+        el.querySelectorAll('.pricing-item.selected').forEach(item => {
+          item.classList.remove('selected');
+          const label = item.dataset.label;
+          selectedLabels.delete(label);
+        });
+        el.style.display = 'none';
+      } else {
+        el.style.display = '';
+      }
+    });
+    document.getElementById('categoryValue').value = cat;
+    updateTotal();
+    updateSummary();
+  }
   function toggleSelect(id) {
     const wrap = document.getElementById(id);
     const list = wrap.querySelector('.custom-select-list');
