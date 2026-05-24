@@ -542,6 +542,7 @@
         </div>
       </div>
 
+      <div id="usageFields">
       <div class="field">
         <label class="field-label"><span class="ja">利用範囲 <span class="req">*</span></span><span class="en">Usage Type</span></label>
         <div class="radio-group">
@@ -568,6 +569,7 @@
       <div class="field">
         <label class="field-label"><span class="ja">使用用途 <span class="req">*</span></span><span class="en">Intended Use</span></label>
         <input type="text" name="usage_purpose" placeholder="例：YouTubeのサムネイルに使用 / e.g. YouTube thumbnail, streaming icon">
+      </div>
       </div>
     </div>
 
@@ -751,6 +753,7 @@
       });
       document.getElementById('sectionTerms').style.display = (isCommission || isIllust) ? '' : 'none';
       document.getElementById('messageOnlySection').style.display = isCommission ? 'none' : '';
+      document.getElementById('usageFields').style.display = isCommission ? '' : 'none';
     }
   }
   // 外側タップで閉じる
