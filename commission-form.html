@@ -495,9 +495,7 @@
               <div class="pricing-check"></div>
               <div class="pricing-name">キャラクターデザイン<span class="en">Character Design</span><small>ヒアリング後に詳細をご相談 / Details discussed after inquiry</small></div>
               <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
-              <div class="pricing-price">¥5,000</div>
-            </div>
-            <div class="pricing-item" data-price="0" data-label="詳細なご要望（キャラクターデザイン）/ Custom Character Design Request" onclick="toggleItem(this)">
+              <div class="pricing-price">¥5,000〜</div>
               <div class="pricing-check"></div>
               <div class="pricing-name">詳細なご要望（キャラクターデザイン）<span class="en">Custom / Complex Character Design</span><small>複雑なデザインなど / Complex design — quote after discussion</small></div>
               <div class="qty-wrap" style="visibility:hidden"><input type="number" min="1" max="99" value="1"><span>体</span></div>
@@ -597,16 +595,11 @@
 </textarea>
       </div>
       <div class="field">
-        <label class="field-label"><span class="ja">参考画像（最大5点）</span><span class="en">Reference Images (up to 5)</span></label>
-        <div class="file-drop" id="fileDrop">
-          <input type="file" id="fileInput" accept="image/jpeg,image/png" multiple>
-          <div class="file-drop-icon">🖼</div>
-          <div class="file-drop-text">
-            <strong>ファイルをドラッグ＆ドロップ、またはクリックして選択 / Drag & drop or click to select</strong>
-            JPG・PNG ／ 最大5点 / up to 5 files
-          </div>
+        <label class="field-label"><span class="ja">参考画像について</span><span class="en">Reference Images</span></label>
+        <div style="background:#fff8f0; border:1px solid var(--accent-muted); border-left:3px solid var(--accent); padding:14px 18px; font-size:13px; line-height:1.9; color:var(--text-muted);">
+          📎 参考画像はフォーム送信後、返信メールまたはBluesky DMにてお送りください（最大5点推奨）。<br>
+          <span style="font-family:'DM Mono',monospace;font-size:11px">Please send reference images via email reply or Bluesky DM after submitting this form (up to 5 recommended).</span>
         </div>
-        <div class="file-list" id="fileList"></div>
       </div>
       <div class="two-col">
         <div class="field">
@@ -847,33 +840,6 @@
     });
   });
 
-  const fileInput = document.getElementById('fileInput');
-  const fileDrop = document.getElementById('fileDrop');
-  const fileList = document.getElementById('fileList');
-  let selectedFiles = [];
-  fileInput.addEventListener('change', e => handleFilesFromList(e.target.files));
-  fileDrop.addEventListener('dragover', e => { e.preventDefault(); fileDrop.classList.add('drag-over'); });
-  fileDrop.addEventListener('dragleave', () => fileDrop.classList.remove('drag-over'));
-  fileDrop.addEventListener('drop', e => { e.preventDefault(); fileDrop.classList.remove('drag-over'); handleFilesFromList(e.dataTransfer.files); });
-  function handleFilesFromList(files) {
-    Array.from(files).forEach(f => {
-      if (selectedFiles.length >= 5) return;
-      if (!['image/jpeg','image/png'].includes(f.type)) return;
-      if (selectedFiles.find(x => x.name === f.name)) return;
-      selectedFiles.push(f);
-    });
-    renderFileList();
-  }
-  function renderFileList() {
-    fileList.innerHTML = '';
-    selectedFiles.forEach((f, i) => {
-      const tag = document.createElement('div'); tag.className = 'file-tag';
-      tag.innerHTML = `📎 ${f.name} <button type="button" onclick="removeFile(${i})">✕</button>`;
-      fileList.appendChild(tag);
-    });
-  }
-  function removeFile(i) { selectedFiles.splice(i, 1); renderFileList(); }
-
   document.getElementById('deadline').min = new Date().toISOString().split('T')[0];
 
   // 確認画面を表示
@@ -959,7 +925,7 @@
       formData.append('ご依頼の詳細 / Request Details', form.elements['detail'].value);
       formData.append('納品時期 / Timeframe', document.getElementById('slotValue')?.value || '未選択 / N/A');
       formData.append('その他ご要望 / Additional Notes', form.elements['extra']?.value || '');
-      selectedFiles.forEach((f, i) => { formData.append(`参考画像${i+1} / Ref Image ${i+1}`, f); });
+      formData.append('参考画像 / Reference Images', 'メール返信またはBluesky DMにて送付予定 / To be sent via email or Bluesky DM');
     } else {
       formData.append('メッセージ / Message', document.getElementById('messageOnlyText').value);
     }
