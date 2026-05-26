@@ -1,0 +1,971 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>コミッション見積もりフォーム / Commission Estimate Form</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@300;400;600&family=Shippori+Mincho:wght@400;600;800&family=DM+Mono:wght@300;400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1410;
+    --paper: #f5f0e8;
+    --paper-dark: #ede6d6;
+    --accent: #8b3a3a;
+    --accent-muted: #d4a49a;
+    --gold: #b8924a;
+    --border: #c8bfb0;
+    --text-muted: #6b5f52;
+    --shadow: rgba(26,20,16,0.12);
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--paper); color: var(--ink); font-family: 'Noto Serif JP', serif; min-height: 100vh; position: relative; overflow-x: hidden; }
+  body::before { content: ''; position: fixed; inset: 0; background-image: repeating-linear-gradient(0deg, transparent, transparent 28px, rgba(180,160,130,0.06) 28px, rgba(180,160,130,0.06) 29px), repeating-linear-gradient(90deg, transparent, transparent 28px, rgba(180,160,130,0.04) 28px, rgba(180,160,130,0.04) 29px); pointer-events: none; z-index: 0; }
+  body::after { content: ''; position: fixed; inset: 16px; border: 1px solid var(--border); pointer-events: none; z-index: 10; }
+  .wrapper { position: relative; z-index: 1; max-width: 780px; margin: 0 auto; padding: 60px 40px 80px; }
+
+  /* Header */
+  .header { text-align: center; margin-bottom: 48px; }
+  .header::before { content: '✦  ✦  ✦'; display: block; font-size: 10px; letter-spacing: 12px; color: var(--gold); margin-bottom: 20px; }
+  .header h1 { font-family: 'Shippori Mincho', serif; font-size: clamp(22px, 5vw, 38px); font-weight: 800; letter-spacing: 0.12em; line-height: 1.3; }
+  .header h1 span { display: block; font-size: 0.42em; font-weight: 400; letter-spacing: 0.4em; color: var(--gold); margin-top: 8px; font-family: 'DM Mono', monospace; }
+  .header-rule { display: flex; align-items: center; gap: 16px; margin: 22px 0; }
+  .header-rule::before, .header-rule::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, transparent, var(--gold), transparent); }
+  .header-rule span { font-family: 'DM Mono', monospace; font-size: 9px; letter-spacing: 3px; color: var(--gold); }
+
+  /* Artist intro */
+  .artist-intro {
+    background: var(--paper-dark);
+    border: 1px solid var(--border);
+    border-left: 3px solid var(--gold);
+    padding: 18px 22px;
+    margin-bottom: 14px;
+    text-align: center;
+  }
+  .artist-intro .ja { font-size: 13.5px; line-height: 1.9; color: var(--ink); }
+  .artist-intro .en { font-family: 'DM Mono', monospace; font-size: 11.5px; color: var(--gold); margin-top: 6px; letter-spacing: 0.08em; }
+
+  .estimate-banner { background: #fff8f0; border: 1px solid var(--accent-muted); border-left: 4px solid var(--accent); padding: 16px 20px; font-size: 13px; line-height: 1.9; color: var(--ink); margin-bottom: 12px; }
+  .estimate-banner strong { color: var(--accent); }
+  .notice-box { background: var(--paper-dark); border: 1px solid var(--border); border-left: 3px solid var(--gold); padding: 16px 20px; font-size: 12.5px; line-height: 1.9; color: var(--text-muted); }
+  .notice-box .en { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gold); margin-top: 6px; display: block; }
+
+  /* Deadline notice */
+  .deadline-notice {
+    margin-top: 12px;
+    background: #f8f4ee;
+    border: 1px solid var(--border);
+    padding: 12px 18px;
+    font-size: 12px;
+    line-height: 1.9;
+    color: var(--text-muted);
+  }
+  .deadline-notice .en { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--text-muted); display: block; margin-top: 4px; }
+
+  .section { margin-bottom: 48px; }
+  .section-title { font-family: 'Shippori Mincho', serif; font-size: 13px; font-weight: 600; letter-spacing: 0.4em; color: var(--gold); display: flex; align-items: center; gap: 12px; margin-bottom: 24px; }
+  .section-title .en { font-size: 10px; letter-spacing: 0.2em; opacity: 0.8; }
+  .section-title::after { content: ''; flex: 1; height: 1px; background: linear-gradient(to right, var(--border), transparent); }
+
+  .field { margin-bottom: 22px; }
+  .field-label { display: block; font-size: 12px; letter-spacing: 0.15em; color: var(--text-muted); margin-bottom: 8px; font-family: 'Shippori Mincho', serif; }
+  .field-label .ja { display: block; }
+  .field-label .en { display: block; font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: var(--gold); margin-top: 2px; }
+  .field-label .req { color: var(--accent); margin-left: 4px; }
+  input[type="text"], input[type="email"], input[type="date"], input[type="number"], select, textarea { width: 100%; background: #fff; border: 1px solid var(--border); border-bottom: 2px solid var(--border); padding: 12px 16px; font-family: 'Noto Serif JP', serif; font-size: 14px; color: var(--ink); outline: none; transition: border-color 0.2s, box-shadow 0.2s; appearance: none; -webkit-appearance: none; border-radius: 0; }
+  input:focus, select:focus, textarea:focus { border-color: var(--accent-muted); border-bottom-color: var(--accent); box-shadow: 0 2px 0 0 var(--accent), 0 4px 16px var(--shadow); }
+  textarea { min-height: 130px; resize: vertical; line-height: 1.8; }
+  .select-wrap { position: relative; }
+  .select-wrap::after { content: '▾'; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--gold); pointer-events: none; font-size: 13px; }
+
+  /* カスタムドロップダウン */
+  .custom-select { position: relative; }
+  .custom-select-btn {
+    width: 100%; background: #fff; border: 1px solid var(--border); border-bottom: 2px solid var(--border);
+    padding: 12px 40px 12px 16px; font-family: 'Noto Serif JP', serif; font-size: 14px; color: var(--ink);
+    cursor: pointer; text-align: left; position: relative; transition: border-color 0.2s;
+  }
+  .custom-select-btn::after { content: '▾'; position: absolute; right: 14px; top: 50%; transform: translateY(-50%); color: var(--gold); font-size: 13px; }
+  .custom-select-btn.open { border-bottom-color: var(--accent); }
+  .custom-select-btn.placeholder { color: #aaa; }
+  .custom-select-list {
+    display: none; position: absolute; top: 100%; left: 0; right: 0; z-index: 50;
+    background: #fff; border: 1px solid var(--border); border-top: none;
+    box-shadow: 0 8px 24px var(--shadow); max-height: 280px; overflow-y: auto;
+  }
+  .custom-select-list.open { display: block; }
+  .custom-select-option {
+    padding: 13px 16px; font-size: 14px; cursor: pointer;
+    border-bottom: 1px solid var(--paper-dark); transition: background 0.1s;
+  }
+  .custom-select-option:last-child { border-bottom: none; }
+  .custom-select-option:hover { background: #fdfaf5; }
+  .custom-select-option.selected { background: #fdf5f0; color: var(--accent); }
+  .custom-select input[type="hidden"] { display: none; }
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  .policy-box { background: var(--paper-dark); border: 1px solid var(--border); padding: 20px 22px; font-size: 12.5px; line-height: 2; color: var(--text-muted); max-height: 200px; overflow-y: auto; margin-bottom: 12px; }
+  .policy-box h4 { font-family: 'Shippori Mincho', serif; font-size: 12px; letter-spacing: 0.3em; color: var(--accent); margin-bottom: 8px; margin-top: 16px; }
+  .policy-box h4 .en { font-size: 10px; opacity: 0.7; margin-left: 6px; }
+  .policy-box h4:first-child { margin-top: 0; }
+  .policy-box::-webkit-scrollbar { width: 4px; }
+  .policy-box::-webkit-scrollbar-track { background: var(--border); }
+  .policy-box::-webkit-scrollbar-thumb { background: var(--gold); }
+
+  /* Pricing */
+  .pricing-grid { display: grid; gap: 1px; background: var(--border); border: 1px solid var(--border); }
+  .pricing-category { background: var(--paper-dark); padding: 9px 16px; font-family: 'Shippori Mincho', serif; font-size: 11px; letter-spacing: 0.3em; color: var(--gold); }
+  .pricing-item { background: #fff; display: grid; grid-template-columns: auto 1fr auto auto; align-items: center; padding: 13px 16px; gap: 14px; cursor: pointer; transition: background 0.15s; user-select: none; }
+  .pricing-item:hover { background: #fdfaf5; }
+  .pricing-item.selected { background: #fdf5f0; }
+  .pricing-check { width: 18px; height: 18px; border: 1.5px solid var(--border); display: flex; align-items: center; justify-content: center; transition: all 0.15s; flex-shrink: 0; }
+  .pricing-item.selected .pricing-check { background: var(--accent); border-color: var(--accent); color: #fff; }
+  .pricing-item.selected .pricing-check::after { content: '✓'; font-size: 11px; }
+  .pricing-name { font-size: 13px; color: var(--ink); line-height: 1.5; }
+  .pricing-name .en { font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--gold); display: block; margin-top: 2px; }
+  .pricing-name small { display: block; font-size: 11px; color: var(--text-muted); margin-top: 2px; }
+  .pricing-price { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--accent); white-space: nowrap; text-align: right; }
+  .qty-wrap { display: none; align-items: center; gap: 6px; }
+  .pricing-item.selected .qty-wrap { display: flex; }
+  .qty-wrap input[type="number"] { width: 56px; padding: 5px 8px; font-size: 13px; text-align: center; border: 1px solid var(--border); border-bottom: 2px solid var(--accent-muted); background: #fff; }
+  .qty-wrap span { font-size: 11px; color: var(--text-muted); white-space: nowrap; }
+
+  .selected-summary { display: none; padding: 14px 18px; background: #fff8f0; border: 1px solid var(--accent-muted); border-top: none; font-size: 12px; line-height: 2; color: var(--text-muted); }
+  .selected-summary .summary-title { font-family: 'Shippori Mincho', serif; font-size: 11px; letter-spacing: 0.3em; color: var(--accent); margin-bottom: 6px; }
+  .selected-summary .summary-item::before { content: '✓ '; color: var(--accent); }
+
+  .total-row { background: var(--paper-dark); display: flex; justify-content: space-between; align-items: center; padding: 16px 20px; border: 1px solid var(--border); border-top: 2px solid var(--gold); }
+  .total-label { font-family: 'Shippori Mincho', serif; font-size: 12px; letter-spacing: 0.2em; color: var(--text-muted); }
+  .total-label .en { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--gold); display: block; margin-top: 2px; }
+  .total-sub { font-size: 10.5px; color: var(--text-muted); margin-top: 3px; }
+  .total-amount { font-family: 'DM Mono', monospace; font-size: 20px; color: var(--accent); }
+  .total-original { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--text-muted); text-decoration: line-through; margin-right: 8px; }
+
+  .rush-note { margin-top: 12px; background: #fff8f0; border: 1px solid var(--accent-muted); border-left: 3px solid var(--accent); padding: 12px 16px; font-size: 12px; line-height: 1.8; color: var(--text-muted); }
+  .rush-note strong { color: var(--accent); }
+  .rush-note .en { font-family: 'DM Mono', monospace; font-size: 11px; display: block; margin-top: 4px; }
+
+  /* Coupon */
+  .coupon-wrap { margin-top: 16px; }
+  .coupon-label { font-family: 'Shippori Mincho', serif; font-size: 12px; letter-spacing: 0.2em; color: var(--text-muted); margin-bottom: 8px; display: block; }
+  .coupon-label .en { font-family: 'DM Mono', monospace; font-size: 10px; color: var(--gold); display: block; margin-top: 2px; }
+  .coupon-row { display: flex; gap: 8px; }
+  .coupon-row input[type="text"] { flex: 1; text-transform: uppercase; letter-spacing: 0.1em; font-family: 'DM Mono', monospace; }
+  .coupon-btn { background: var(--ink); color: #fff; border: none; padding: 0 20px; font-family: 'Shippori Mincho', serif; font-size: 13px; letter-spacing: 0.2em; cursor: pointer; white-space: nowrap; transition: background 0.2s; flex-shrink: 0; }
+  .coupon-btn:hover { background: var(--accent); }
+  .coupon-result { margin-top: 10px; font-size: 12.5px; padding: 10px 14px; display: none; }
+  .coupon-result.success { background: #f0fff4; border: 1px solid #6dbf8b; color: #2d7a4f; display: block; }
+  .coupon-result.error { background: #fff0f0; border: 1px solid var(--accent-muted); color: var(--accent); display: block; }
+
+  .check-group, .radio-group { display: flex; flex-direction: column; gap: 10px; }
+  .check-item, .radio-item { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-size: 13.5px; line-height: 1.6; }
+  .check-item input, .radio-item input { width: auto; margin-top: 3px; accent-color: var(--accent); flex-shrink: 0; }
+  .check-item .en, .radio-item .en { font-family: 'DM Mono', monospace; font-size: 10.5px; color: var(--gold); display: block; }
+
+  .consent-block { background: #fff; border: 1px solid var(--border); padding: 18px 20px; display: flex; align-items: flex-start; gap: 14px; cursor: pointer; transition: background 0.15s; }
+  .consent-block:hover { background: #fdfaf5; }
+  .consent-block input[type="checkbox"] { width: 20px; height: 20px; accent-color: var(--accent); margin-top: 2px; flex-shrink: 0; cursor: pointer; }
+  .consent-text { font-size: 12.5px; line-height: 1.9; color: var(--text-muted); }
+
+  .file-drop { border: 2px dashed var(--border); padding: 32px 20px; text-align: center; background: #fff; cursor: pointer; transition: border-color 0.2s, background 0.2s; position: relative; }
+  .file-drop:hover, .file-drop.drag-over { border-color: var(--accent-muted); background: #fdf8f5; }
+  .file-drop input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
+  .file-drop-icon { font-size: 28px; margin-bottom: 10px; color: var(--accent-muted); }
+  .file-drop-text { font-size: 13px; color: var(--text-muted); line-height: 1.7; }
+  .file-drop-text strong { color: var(--accent); display: block; margin-bottom: 4px; font-family: 'Shippori Mincho', serif; letter-spacing: 0.1em; }
+  .file-list { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 8px; }
+  .file-tag { background: var(--paper-dark); border: 1px solid var(--border); padding: 4px 10px; font-size: 11px; font-family: 'DM Mono', monospace; color: var(--text-muted); display: flex; align-items: center; gap: 6px; }
+  .file-tag button { background: none; border: none; cursor: pointer; color: var(--accent); font-size: 13px; padding: 0; line-height: 1; }
+
+  .submit-area { text-align: center; margin-top: 48px; padding-top: 40px; border-top: 1px solid var(--border); }
+  .submit-area::before { content: '✦  ✦  ✦'; display: block; font-size: 10px; letter-spacing: 12px; color: var(--gold); margin-bottom: 24px; }
+  .submit-btn { display: inline-block; background: var(--accent); color: #fff; border: none; padding: 18px 64px; font-family: 'Shippori Mincho', serif; font-size: 14px; letter-spacing: 0.4em; cursor: pointer; transition: background 0.2s, transform 0.1s; box-shadow: 4px 4px 0 var(--ink); }
+  .submit-btn:hover { background: #722f2f; transform: translate(-1px,-1px); box-shadow: 5px 5px 0 var(--ink); }
+  .submit-btn:active { transform: translate(2px,2px); box-shadow: 2px 2px 0 var(--ink); }
+  .submit-note { margin-top: 16px; font-size: 11.5px; color: var(--text-muted); letter-spacing: 0.05em; line-height: 1.8; }
+
+  /* 確認画面 */
+  .confirm-overlay { display: none; position: fixed; inset: 0; background: rgba(245,240,232,0.98); z-index: 90; overflow-y: auto; padding: 40px 20px; }
+  .confirm-overlay.show { display: block; }
+  .confirm-inner { max-width: 680px; margin: 0 auto; }
+  .confirm-inner h2 { font-family: 'Shippori Mincho', serif; font-size: 22px; letter-spacing: 0.3em; color: var(--ink); text-align: center; margin-bottom: 6px; }
+  .confirm-inner .confirm-sub { text-align: center; font-family: 'DM Mono', monospace; font-size: 11px; color: var(--gold); margin-bottom: 28px; }
+  .confirm-table { width: 100%; border-collapse: collapse; margin-bottom: 28px; }
+  .confirm-table tr { border-bottom: 1px solid var(--border); }
+  .confirm-table tr:last-child { border-bottom: none; }
+  .confirm-table th { width: 38%; background: var(--paper-dark); padding: 12px 14px; font-family: 'Shippori Mincho', serif; font-size: 12px; letter-spacing: 0.15em; color: var(--text-muted); text-align: left; vertical-align: top; }
+  .confirm-table td { padding: 12px 14px; font-size: 13px; color: var(--ink); line-height: 1.8; vertical-align: top; white-space: pre-wrap; word-break: break-all; }
+  .confirm-total { background: var(--paper-dark); border: 1px solid var(--border); border-top: 2px solid var(--gold); padding: 16px 20px; display: flex; justify-content: space-between; align-items: center; margin-bottom: 28px; }
+  .confirm-total-label { font-family: 'Shippori Mincho', serif; font-size: 12px; letter-spacing: 0.2em; color: var(--text-muted); }
+  .confirm-total-amount { font-family: 'DM Mono', monospace; font-size: 22px; color: var(--accent); }
+  .confirm-actions { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; }
+  .confirm-back-btn { background: #fff; color: var(--ink); border: 1px solid var(--border); padding: 14px 36px; font-family: 'Shippori Mincho', serif; font-size: 13px; letter-spacing: 0.3em; cursor: pointer; transition: background 0.2s; }
+  .confirm-back-btn:hover { background: var(--paper-dark); }
+  .confirm-send-btn { background: var(--accent); color: #fff; border: none; padding: 14px 36px; font-family: 'Shippori Mincho', serif; font-size: 13px; letter-spacing: 0.3em; cursor: pointer; transition: background 0.2s; box-shadow: 3px 3px 0 var(--ink); }
+  .confirm-send-btn:hover { background: #722f2f; }
+  .confirm-notice { text-align: center; font-size: 11.5px; color: var(--text-muted); margin-top: 14px; line-height: 1.8; }
+
+  .success-overlay { display: none; position: fixed; inset: 0; background: rgba(245,240,232,0.97); z-index: 100; align-items: center; justify-content: center; flex-direction: column; text-align: center; padding: 40px; }
+  .success-overlay.show { display: flex; }
+  .success-overlay h2 { font-family: 'Shippori Mincho', serif; font-size: 28px; letter-spacing: 0.3em; color: var(--ink); margin: 24px 0 12px; }
+  .success-overlay p { color: var(--text-muted); font-size: 14px; line-height: 2; }
+  .success-icon { width: 64px; height: 64px; border: 2px solid var(--gold); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 28px; color: var(--gold); }
+
+  @media (max-width: 600px) {
+    .wrapper { padding: 40px 20px 60px; }
+    .two-col { grid-template-columns: 1fr; }
+    body::after { inset: 8px; }
+    .coupon-row { flex-direction: column; }
+    .coupon-btn { padding: 12px; }
+  }
+</style>
+</head>
+<body>
+<div class="wrapper">
+  <header class="header">
+    <h1>コミッション見積もりフォーム<span>COMMISSION ESTIMATE REQUEST</span></h1>
+    <div class="header-rule"><span>◆</span></div>
+
+    <!-- アーティスト紹介 -->
+    <div class="artist-intro">
+      <div class="ja">獣人・動物・ケモノ系のOCを中心に描いています。</div>
+      <div class="en">Furry / Kemono illustrator — specializing in original animal & anthropomorphic characters.</div>
+    </div>
+
+    <div class="estimate-banner">
+      📋 このフォームは<strong>お見積もり・ご相談専用</strong>です。 / <em>This form is for estimates &amp; inquiries only.</em><br>
+      送信いただいた内容をもとに、正式なお見積もりをご提示してからご依頼確定となります。<strong>送信のみでは依頼確定・お支払いは発生しません。</strong><br>
+      <span style="font-family:'DM Mono',monospace;font-size:11px;color:var(--accent)">Submitting this form does not confirm your order or trigger any payment.</span>
+    </div>
+
+    <div class="notice-box">
+      フォーム送信後、<strong>3日以内</strong>にご連絡いたします。連絡がない場合は恐れ入りますが再度ご送信をお願いいたします。<br>
+      <strong>法人・プロジェクト案件のご相談は、ご用件で「ご相談 / Inquiry」をお選びのうえ、詳細をご記入ください。</strong><br>
+      💳 お支払いはPayPalにて承ります。詳細は見積もりご連絡時にお伝えします。
+      <span class="en">I will reply within 3 business days. For corporate or project inquiries, please select "Inquiry" below.<br>Payments are processed via PayPal. Details will be provided upon quote confirmation.</span>
+    </div>
+
+    <!-- 納期注意 -->
+    <div class="deadline-notice">
+      ⏰ 平日は本業があるため、納期を多めにいただく場合がございます。あらかじめご了承ください。
+      <span class="en">As I work a day job on weekdays, turnaround times may be longer than expected. Thank you for your understanding.</span>
+    </div>
+  </header>
+
+  <form id="commissionForm" novalidate>
+
+    <!-- 01 基本情報 -->
+    <div class="section">
+      <div class="section-title">01 &nbsp; 基本情報 <span class="en">/ Basic Info</span></div>
+      <div class="two-col">
+        <div class="field">
+          <label class="field-label"><span class="ja">お名前 <span class="req">*</span></span><span class="en">Your Name</span></label>
+          <input type="text" name="name" placeholder="例：山田 太郎 / Your name" required>
+        </div>
+        <div class="field">
+          <label class="field-label"><span class="ja">メールアドレス <span class="req">*</span></span><span class="en">Email Address</span></label>
+          <input type="email" name="email" placeholder="xxx@example.com" required>
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label"><span class="ja">SNS ユーザー名</span><span class="en">SNS Handle (optional)</span></label>
+        <input type="text" name="sns" placeholder="例：X(@sample)、Bluesky など / e.g. X(@sample)">
+      </div>
+      <div class="field">
+        <label class="field-label"><span class="ja">ご用件 <span class="req">*</span></span><span class="en">Purpose of Inquiry</span></label>
+        <div class="custom-select" id="inquirySelect">
+          <input type="hidden" name="inquiry" id="inquiryValue" required>
+          <button type="button" class="custom-select-btn placeholder" id="inquiryBtn" onclick="toggleSelect('inquirySelect')">― お選びください / Please select ―</button>
+          <div class="custom-select-list" id="inquiryList">
+            <div class="custom-select-option" onclick="selectOption('inquirySelect','Commission（コミッション）')">Commission（コミッション）</div>
+            <div class="custom-select-option" onclick="selectOption('inquirySelect','ご相談 / Inquiry')">ご相談 / Inquiry</div>
+            <div class="custom-select-option" onclick="selectOption('inquirySelect','イラストについて / About my works')">イラストについて / About my works</div>
+            <div class="custom-select-option" onclick="selectOption('inquirySelect','その他 / Other')">その他 / Other</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- 02 注意事項 -->
+    <div class="section" id="sectionTerms" style="display:none">
+      <div class="section-title">02 &nbsp; 注意事項 <span class="en">/ Terms &amp; Conditions</span></div>
+      <div class="field">
+        <div class="policy-box">
+          <h4>COMMISSION について <span class="en">/ About Commissions</span></h4>
+          ・コミッションのリクエストは<strong>一次創作のみ</strong>お受けしております。二次創作（ペルソナ等）はお受けできません。<br>
+          <span style="font-family:'DM Mono',monospace;font-size:11px">· Original characters only. Fan art / persona art is not accepted.</span><br>
+          ・実績公開不可のリクエストはお受けできません。制作物はポートフォリオ・SNSに掲載する場合があります。<br>
+          <span style="font-family:'DM Mono',monospace;font-size:11px">· Finished works may be posted to my portfolio and SNS.</span><br>
+          ・商用利用の場合は別途料金が必要となります。<br>
+          <span style="font-family:'DM Mono',monospace;font-size:11px">· Commercial use requires an additional fee.</span>
+          <h4>禁止事項 <span class="en">/ Prohibited Uses</span></h4>
+          ・許可のない商用利用 ／ 悪質な編集・無断転載・自作発言 ／ AI学習への利用<br>
+          ・NFT・AI学習目的でのデータ提供<br>
+          <span style="font-family:'DM Mono',monospace;font-size:11px">· Unauthorized commercial use / redistribution / claiming as your own / AI training / NFT use — all strictly prohibited.</span>
+          <h4>イラストの利用について <span class="en">/ Usage Guidelines</span></h4>
+          ✅ 個人での保存・鑑賞 ／ 公開しない模写 ／ クレジット表記を伴う引用<br>
+          ❌ 営利目的での転載 ／ 改変・トレース・自作発言 ／ 無断でのグッズ制作・販売<br>
+          <span style="font-family:'DM Mono',monospace;font-size:11px">✅ Personal use / private study / sharing with credit &nbsp; ❌ Commercial repost / tracing / unauthorized merch</span><br><br>
+          ⚠ 公開しているイラストはフリー素材ではありません。/ My artwork is NOT free to use.
+        </div>
+        <label class="consent-block">
+          <input type="checkbox" name="agree_caution" required>
+          <span class="consent-text">注意事項・禁止事項を確認し、同意します。<br><span style="font-family:'DM Mono',monospace;font-size:11px">I have read and agree to the terms above.</span></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- メッセージのみ（コミッション以外） -->
+    <div id="messageOnlySection" style="display:none;" class="section">
+      <div class="section-title">03 &nbsp; メッセージ <span class="en">/ Message</span></div>
+      <div class="field">
+        <label class="field-label"><span class="ja">メッセージ <span class="req">*</span></span><span class="en">Your Message</span></label>
+        <textarea name="message_only" id="messageOnlyText" style="min-height:180px" placeholder="ご自由にどうぞ / Feel free to write anything"></textarea>
+      </div>
+    </div>
+
+    <!-- 03 メニュー -->
+    <div class="section" id="sectionMenu" style="display:none">
+      <div class="section-title">03 &nbsp; ご希望のメニュー <span class="en">/ Menu &amp; Pricing</span></div>
+      <div class="field">
+        <label class="field-label"><span class="ja">ジャンルを選択 <span class="req">*</span></span><span class="en">Select a category</span></label>
+        <div class="custom-select" id="categorySelect">
+          <input type="hidden" name="category" id="categoryValue">
+          <button type="button" class="custom-select-btn placeholder" onclick="toggleSelect('categorySelect')">― カテゴリを選んでください / Please select a category ―</button>
+          <div class="custom-select-list" id="categoryList">
+            <div class="custom-select-option" onclick="selectCategory('illust')">🎨 イラスト（一枚絵）/ Illustration</div>
+            <div class="custom-select-option" onclick="selectCategory('chibi')">🐾 デフォルメキャラ / Chibi Character</div>
+            <div class="custom-select-option" onclick="selectCategory('charadesign')">✏️ キャラクターデザイン / Character Design</div>
+            <div class="custom-select-option" onclick="selectCategory('sns')">📱 SNS・配信アイテム / SNS &amp; Streaming Items</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- 一枚絵 -->
+      <div id="grid-illust" style="display:none">
+        <div class="field">
+          <label class="field-label"><span class="ja">メニューを選択し、数量をご入力ください</span><span class="en">Select items and enter quantity</span></label>
+          <div class="pricing-grid">
+            <div class="pricing-category">Illustration ／ 一枚絵イラスト</div>
+            <div class="pricing-item" data-price="5000" data-label="一枚絵 バストアップ / Illustration — Bust Up" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">一枚絵 バストアップ<span class="en">Illustration — Bust Up</span><small>１キャラ・背景なし or 無地 / 1 character, no bg</small></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
+              <div class="pricing-price">¥5,000</div>
+            </div>
+            <div class="pricing-item" data-price="6000" data-label="一枚絵 ハーフボディ / Illustration — Half Body" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">一枚絵 ハーフボディ<span class="en">Illustration — Half Body</span><small>１キャラ・背景なし or 無地 / 1 character, no bg</small></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
+              <div class="pricing-price">¥6,000</div>
+            </div>
+            <div class="pricing-item" data-price="7000" data-label="一枚絵 フルボディ / Illustration — Full Body" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">一枚絵 フルボディ<span class="en">Illustration — Full Body</span><small>１キャラ・背景なし or 無地 / 1 character, no bg</small></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
+              <div class="pricing-price">¥7,000</div>
+            </div>
+            <div class="pricing-item" data-price="3000" data-label="背景追加 / Background Add-on" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">背景追加<span class="en">Background Add-on</span><small>シンプルな背景を追加 / Simple background</small></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
+              <div class="pricing-price">¥3,000</div>
+            </div>
+            <div class="pricing-item" data-price="2000" data-label="エフェクト追加 / Effects Add-on" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">エフェクト追加<span class="en">Effects Add-on</span><small>炎・魔法などのエフェクト / Fire, magic, etc.</small></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
+              <div class="pricing-price">¥2,000</div>
+            </div>
+            <div class="pricing-item" data-price="0" data-label="詳細なご要望（イラスト）/ Custom Illustration Request" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">詳細なご要望（イラスト）<span class="en">Custom / Complex Request</span><small>複雑な構図・複数キャラなど / Multiple chars, complex comp — quote after discussion</small></div>
+              <div class="qty-wrap" style="visibility:hidden"><input type="number" min="1" max="99" value="1"><span>点</span></div>
+              <div class="pricing-price">要見積 / Quote</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SNS・配信 -->
+      <div id="grid-sns" style="display:none">
+        <div class="field">
+          <label class="field-label"><span class="ja">メニューを選択し、数量をご入力ください</span><span class="en">Select items and enter quantity</span></label>
+          <div class="pricing-grid">
+            <div class="pricing-category">SNS / Streaming Items ／ 単品</div>
+            <div class="pricing-item" data-price="2500" data-label="SNSアイコン / SNS Icon" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">SNSアイコン<span class="en">SNS Icon</span></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
+              <div class="pricing-price">¥2,500</div>
+            </div>
+            <div class="pricing-item" data-price="3000" data-label="SNSヘッダー / SNS Header" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">SNSヘッダー<span class="en">SNS Header / Banner</span></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>点</span></div>
+              <div class="pricing-price">¥3,000</div>
+            </div>
+            <div class="pricing-item" data-price="500" data-label="YouTubeメンバーシップ用バッジ / YT Membership Badge" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">YouTubeメンバーシップ用バッジ<span class="en">YouTube Membership Badge</span><small>1種につき / per design</small></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>種</span></div>
+              <div class="pricing-price">¥500</div>
+            </div>
+            <div class="pricing-item" data-price="1500" data-label="SNSスタンプ / SNS Sticker" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">SNSスタンプ<span class="en">SNS Sticker / Emote</span><small>1種につき / per design</small></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>種</span></div>
+              <div class="pricing-price">¥1,500</div>
+            </div>
+            <div class="pricing-category">Streaming Set ／ 配信者セット（まとめてお得）</div>
+            <div class="pricing-item" data-price="7000" data-label="配信者セット / Streamer Full Set" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">配信者セット<span class="en">Streamer Full Set</span><small>SNSアイコン×1 ＋ SNSヘッダー×1 ＋ バッジ×1 ＋ スタンプ×1　<strong style="color:var(--accent)">▶ 単品合計より¥500お得 / Save ¥500</strong></small></div>
+              <div class="qty-wrap" style="visibility:hidden"><input type="number" min="1" max="99" value="1"><span>式</span></div>
+              <div class="pricing-price">¥7,000</div>
+            </div>
+            <div class="pricing-category">Set Options ／ 追加オプション</div>
+            <div class="pricing-item" data-price="1500" data-label="スタンプ追加 / Extra Sticker" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">スタンプ追加<span class="en">Extra Sticker / Emote</span><small>1種につき / per design</small></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>種</span></div>
+              <div class="pricing-price">＋¥1,500</div>
+            </div>
+            <div class="pricing-item" data-price="500" data-label="バッジ追加 / Extra Badge" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">バッジ追加<span class="en">Extra Badge</span><small>1種につき / per design</small></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>種</span></div>
+              <div class="pricing-price">＋¥500</div>
+            </div>
+            <div class="pricing-item" data-price="3000" data-label="キャラ追加（バストアップ）/ Extra Character (Bust)" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">キャラ追加（バストアップ）<span class="en">Extra Character — Bust Up</span></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
+              <div class="pricing-price">＋¥3,000</div>
+            </div>
+            <div class="pricing-item" data-price="5000" data-label="キャラ追加（全身）/ Extra Character (Full Body)" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">キャラ追加（全身）<span class="en">Extra Character — Full Body</span></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
+              <div class="pricing-price">＋¥5,000</div>
+            </div>
+            <div class="pricing-item" data-price="3000" data-label="デフォルメキャラ追加 / Extra Chibi" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">デフォルメキャラ追加<span class="en">Extra Chibi Character</span></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
+              <div class="pricing-price">＋¥3,000</div>
+            </div>
+            <div class="pricing-item" data-price="5000" data-label="キャラクターデザイン作成（セットオプション）/ Character Design (Set Option)" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">キャラクターデザイン作成<span class="en">Character Design — Set Add-on</span><small>セット制作前にキャラデザから依頼する場合 / If you need a design before the set</small></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
+              <div class="pricing-price">＋¥5,000〜</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- デフォルメキャラ -->
+      <div id="grid-chibi" style="display:none">
+        <div class="field">
+          <label class="field-label"><span class="ja">メニューを選択し、数量をご入力ください</span><span class="en">Select items and enter quantity</span></label>
+          <div class="pricing-grid">
+            <div class="pricing-category">SD / Chibi ／ デフォルメキャラ</div>
+            <div class="pricing-item" data-price="3000" data-label="SDキャラ／デフォルメキャラ / SD Chibi Character" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">デフォルメキャラ<span class="en">Chibi Character</span><small>１キャラ・全身・背景なし or 無地 / 1 character, full body, no bg</small></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
+              <div class="pricing-price">¥3,000</div>
+            </div>
+            <div class="pricing-item" data-price="0" data-label="詳細なご要望（デフォルメキャラ）/ Custom Chibi Request" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">詳細なご要望（デフォルメキャラ）<span class="en">Custom / Complex Chibi Request</span><small>複数キャラ・複雑なポーズなど / Multiple chars, complex pose — quote after discussion</small></div>
+              <div class="qty-wrap" style="visibility:hidden"><input type="number" min="1" max="99" value="1"><span>体</span></div>
+              <div class="pricing-price">要見積 / Quote</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- キャラクターデザイン -->
+      <div id="grid-charadesign" style="display:none">
+        <div class="field">
+          <label class="field-label"><span class="ja">メニューを選択し、数量をご入力ください</span><span class="en">Select items and enter quantity</span></label>
+          <div class="pricing-grid">
+            <div class="pricing-category">Character Design ／ キャラクターデザイン</div>
+            <div class="pricing-item" data-price="5000" data-label="キャラクターデザイン / Character Design" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">キャラクターデザイン<span class="en">Character Design</span><small>ヒアリング後に詳細をご相談 / Details discussed after inquiry</small></div>
+              <div class="qty-wrap"><input type="number" min="1" max="99" value="1" onclick="event.stopPropagation()" onchange="updateTotal()"><span>体</span></div>
+              <div class="pricing-price">¥5,000〜</div>
+            </div>
+            <div class="pricing-item" data-price="0" data-label="詳細なご要望（キャラクターデザイン）/ Custom Character Design Request" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">詳細なご要望（キャラクターデザイン）<span class="en">Custom / Complex Character Design</span><small>複雑なデザインなど / Complex design — quote after discussion</small></div>
+              <div class="qty-wrap" style="visibility:hidden"><input type="number" min="1" max="99" value="1"><span>体</span></div>
+              <div class="pricing-price">要見積 / Quote</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="selected-summary" id="selectedSummary">
+        <div class="summary-title">選択中のメニュー / Selected Items</div>
+        <div id="selectedList"></div>
+      </div>
+
+      <div class="total-row">
+        <div>
+          <div class="total-label">お見積もり目安金額<span class="en">Estimated Total</span></div>
+          <div class="total-sub">※ 正式金額は送信後にご連絡します / Final price confirmed after inquiry</div>
+        </div>
+        <div style="text-align:right">
+          <span class="total-original" id="totalOriginal" style="display:none"></span>
+          <span class="total-amount" id="totalAmount">¥0</span>
+        </div>
+      </div>
+
+      <div style="margin-top:12px; padding:10px 16px; background:#f8f4ee; border:1px solid var(--border); font-family:'DM Mono',monospace; font-size:11.5px; color:var(--text-muted); line-height:1.8;">
+        💱 Prices are listed in JPY (Japanese Yen). Please check the current exchange rate before inquiring.
+      </div>
+
+      <div class="rush-note">
+        ⚡ <strong>短納期について / Rush Orders:</strong> 通常より早い納品をご希望の場合、別途料金が発生する場合があります。
+          <span class="en">Rush fees may apply for expedited delivery. Details will be discussed after inquiry.</span>
+        </div>
+
+        <div class="coupon-wrap">
+          <span class="coupon-label">🎟 クーポンコード（お持ちの方）<span class="en">Coupon Code (if you have one)</span></span>
+          <div class="coupon-row">
+            <input type="text" id="couponInput" placeholder="例：FRIEND50" maxlength="20">
+            <button type="button" class="coupon-btn" onclick="applyCoupon()">適　用 / Apply</button>
+          </div>
+          <div class="coupon-result" id="couponResult"></div>
+        </div>
+      </div>
+
+      <div id="usageFields" style="display:none">
+      <div class="field">
+        <label class="field-label"><span class="ja">利用範囲 <span class="req">*</span></span><span class="en">Usage Type</span></label>
+        <div class="radio-group">
+          <label class="radio-item"><input type="radio" name="usage_type" value="personal" required> 個人利用<span class="en">Personal use</span></label>
+          <label class="radio-item"><input type="radio" name="usage_type" value="commercial"> 商用利用（料金は別途お見積もり・要相談）<span class="en">Commercial use — quote upon request</span></label>
+        </div>
+        <div id="commercialNote" style="display:none; margin-top:10px; padding:12px 16px; background:#fff8f0; border:1px solid var(--accent-muted); border-left:3px solid var(--accent); font-size:12px; line-height:1.9; color:var(--text-muted);">
+          ⚠ 商用利用の場合、用途・規模に応じて別途料金をご提案します。使用用途・媒体をできるだけ詳しくご記入ください。<br>
+          <span style="font-family:'DM Mono',monospace;font-size:11px">For commercial use, an additional fee will be quoted based on usage scope. Please describe your intended use in detail.</span>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label"><span class="ja">使用媒体（複数選択可）<span class="req">*</span></span><span class="en">Platform / Medium (multiple OK)</span></label>
+        <div class="check-group">
+          <label class="check-item"><input type="checkbox" name="media[]" value="sns"> SNS・ブログ等のデジタル<span class="en">SNS / Blog / Digital</span></label>
+          <label class="check-item"><input type="checkbox" name="media[]" value="stream"> 配信・動画（YouTube等）<span class="en">Streaming / Video (YouTube etc.)</span></label>
+          <label class="check-item"><input type="checkbox" name="media[]" value="print"> 印刷物（同人誌・グッズ等）<span class="en">Print / Merchandise</span></label>
+          <label class="check-item"><input type="checkbox" name="media[]" value="personal"> 個人の壁紙・保存用<span class="en">Personal wallpaper / private use</span></label>
+          <label class="check-item"><input type="checkbox" name="media[]" value="other"> その他<span class="en">Other</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label"><span class="ja">使用用途 <span class="req">*</span></span><span class="en">Intended Use</span></label>
+        <input type="text" name="usage_purpose" placeholder="例：YouTubeのサムネイルに使用 / e.g. YouTube thumbnail, streaming icon">
+      </div>
+      </div>
+    </div>
+
+    <!-- 04 依頼詳細 -->
+    <div class="section" id="sectionDetail" style="display:none">
+      <div class="section-title">04 &nbsp; ご依頼の詳細 <span class="en">/ Request Details</span></div>
+      <div class="field">
+        <label class="field-label"><span class="ja">ご依頼内容の詳細 <span class="req">*</span></span><span class="en">Character / Request Details</span></label>
+        <textarea name="detail" style="min-height:240px" required>【Name / キャラクター名・活動名】
+
+
+【Personality and Setting / 性格や設定】
+
+
+【Visual preference / 完成イメージ】
+
+
+【Pose / ポーズ指定】
+
+
+【Expression / 表情指定】
+
+
+【Additional notes / その他ご要望】
+</textarea>
+      </div>
+      <div class="field">
+        <label class="field-label"><span class="ja">参考画像について</span><span class="en">Reference Images</span></label>
+        <div style="background:#fff8f0; border:1px solid var(--accent-muted); border-left:3px solid var(--accent); padding:14px 18px; font-size:13px; line-height:1.9; color:var(--text-muted);">
+          📎 参考画像は送信完了後に表示されるリンクよりお送りください（最大5点）。<br>
+          <span style="font-family:'DM Mono',monospace;font-size:11px">Reference images can be uploaded via the link shown after submission (up to 5 files).</span>
+        </div>
+      </div>
+      <div class="two-col">
+        <div class="field">
+          <label class="field-label"><span class="ja">ご希望の納品時期</span><span class="en">Preferred Timeframe</span></label>
+          <div class="custom-select" id="slotSelect">
+            <input type="hidden" name="slot" id="slotValue">
+            <button type="button" class="custom-select-btn placeholder" id="slotBtn" onclick="toggleSelect('slotSelect')">― お選びください / Please select ―</button>
+            <div class="custom-select-list" id="slotList">
+              <div class="custom-select-option" onclick="selectOption('slotSelect','今月中 / This month')">今月中 / This month</div>
+              <div class="custom-select-option" onclick="selectOption('slotSelect','1〜2ヶ月後 / 1–2 months')">1〜2ヶ月後 / 1–2 months</div>
+              <div class="custom-select-option" onclick="selectOption('slotSelect','3ヶ月以降 / 3+ months')">3ヶ月以降 / 3+ months</div>
+              <div class="custom-select-option" onclick="selectOption('slotSelect','未定・相談したい / Flexible / TBD')">未定・相談したい / Flexible / TBD</div>
+            </div>
+          </div>
+        </div>
+        <div class="field">
+          <label class="field-label"><span class="ja">ご予定の納品日（任意）</span><span class="en">Preferred Deadline (optional)</span></label>
+          <input type="date" name="deadline" id="deadline">
+        </div>
+      </div>
+      <div class="field">
+        <label class="field-label"><span class="ja">その他ご要望・メッセージ</span><span class="en">Additional Notes / Message</span></label>
+        <textarea name="extra" placeholder="ご自由にどうぞ / Feel free to write anything"></textarea>
+      </div>
+    </div>
+
+    <!-- 05 同意 -->
+    <div class="section">
+      <div class="section-title">05 &nbsp; 送信前の確認 <span class="en">/ Final Confirmation</span></div>
+      <div class="policy-box" style="max-height:120px; margin-bottom:16px">
+        本フォームに記載いただいた個人情報は、コミッション依頼への対応にのみ使用します。第三者への提供はいたしません。制作物は実績としてポートフォリオ・SNSに掲載する場合があります。<br>
+        <span style="font-family:'DM Mono',monospace;font-size:11px">Your personal information will only be used to process your commission inquiry and will not be shared with third parties. Finished works may be shared on my portfolio and SNS.</span>
+      </div>
+      <label class="consent-block">
+        <input type="checkbox" name="agree_terms" required>
+        <span class="consent-text">
+          利用規約を確認し同意します。/ I agree to the terms above.<br>
+          <strong style="color:var(--accent)">このフォームはお見積もり専用です。送信のみでは依頼確定・お支払いは発生しません。<br>
+          <span style="font-family:'DM Mono',monospace;font-size:11px">Submitting this form does not confirm your order or trigger any payment.</span></strong>
+        </span>
+      </label>
+    </div>
+
+    <div class="submit-area">
+      <button type="button" class="submit-btn" onclick="showConfirm()">入力内容を確認する / Review</button>
+      <div class="submit-note">
+        送信後3日以内にメールにてお見積もりをご連絡いたします。/ I will reply within 3 business days.<br>
+        ご不明な点はSNSのDMにてお問い合わせください。/ Feel free to DM me on SNS.<br><br>
+        <a href="https://bsky.app/profile/yuzuki-ryo.bsky.social" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;color:var(--accent);font-family:'DM Mono',monospace;font-size:12px;text-decoration:none;border:1px solid var(--accent-muted);padding:8px 16px;transition:background 0.2s;" onmouseover="this.style.background='#fff8f0'" onmouseout="this.style.background='transparent'">
+          🦋 Bluesky DM → @yuzuki-ryo.bsky.social
+        </a>
+      </div>
+    </div>
+  </form>
+</div>
+
+<!-- 確認画面 -->
+<div class="confirm-overlay" id="confirmOverlay">
+  <div class="confirm-inner">
+    <h2>入力内容の確認</h2>
+    <div class="confirm-sub">PLEASE REVIEW YOUR REQUEST</div>
+    <table class="confirm-table" id="confirmTable"></table>
+    <div class="confirm-total">
+      <div class="confirm-total-label">お見積もり目安 / Estimated Total</div>
+      <div class="confirm-total-amount" id="confirmTotal"></div>
+    </div>
+    <div class="confirm-actions">
+      <button type="button" class="confirm-back-btn" onclick="hideConfirm()">← 修正する / Edit</button>
+      <button type="button" class="confirm-send-btn" id="confirmSendBtn" onclick="doSubmit()">この内容で送信する / Send</button>
+    </div>
+    <div class="confirm-notice">
+      送信後3日以内にメールにてご連絡いたします。<br>
+      この画面をスクリーンショットして保存しておくと便利です📸<br>
+      <span style="font-family:'DM Mono',monospace;font-size:11px">Feel free to screenshot this page for your records.</span>
+    </div>
+  </div>
+</div>
+
+<div class="success-overlay" id="successOverlay">
+  <div class="success-icon">✓</div>
+  <h2>送信しました</h2>
+  <p>お見積もりのご依頼ありがとうございます。<br>内容を確認のうえ、3日以内にメールにてご連絡いたします。<br><span style="font-family:'DM Mono',monospace;font-size:12px">Thank you! I'll be in touch within 3 business days.</span></p>
+  <div style="margin-top:20px; padding:16px 20px; background:#fff8f0; border:1px solid var(--accent-muted); border-left:3px solid var(--accent); text-align:left; font-size:13px; line-height:1.9; color:var(--text-muted); max-width:480px;">
+    📎 参考画像がある方は下記フォームよりお送りください。ない方はそのまま画面を閉じてください。<br>
+    <span style="font-family:'DM Mono',monospace;font-size:11px">If you have reference images, please upload them below. If not, feel free to close this page.</span><br>
+    <a href="https://forms.gle/k9kghbZdk27beWTv8" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;color:var(--accent);font-family:'DM Mono',monospace;font-size:12px;text-decoration:none;border:1px solid var(--accent-muted);padding:6px 14px;">
+      📋 参考画像送付フォーム / Upload Reference Images →
+    </a>
+  </div>
+  <div style="margin-top:16px;">
+    <a href="https://bsky.app/profile/yuzuki-ryo.bsky.social" target="_blank" rel="noopener" style="display:inline-flex;align-items:center;gap:8px;color:var(--accent);font-family:'DM Mono',monospace;font-size:12px;text-decoration:none;border:1px solid var(--accent-muted);padding:8px 16px;">
+      🦋 Bluesky → @yuzuki-ryo.bsky.social
+    </a>
+  </div>
+</div>
+
+<script>
+  function selectCategory(cat) {
+    const labels = {
+      'illust': '🎨 イラスト（一枚絵）/ Illustration',
+      'chibi': '🐾 デフォルメキャラ / Chibi Character',
+      'charadesign': '✏️ キャラクターデザイン / Character Design',
+      'sns': '📱 SNS・配信アイテム / SNS & Streaming Items'
+    };
+    // ボタンのテキストを更新して閉じる
+    const btn = document.querySelector('#categorySelect .custom-select-btn');
+    btn.textContent = labels[cat];
+    btn.classList.remove('placeholder', 'open');
+    document.getElementById('categoryList').classList.remove('open');
+    document.getElementById('categoryValue').value = cat;
+    // グリッド切り替え
+    ['illust','sns','chibi','charadesign'].forEach(c => {
+      const el = document.getElementById('grid-' + c);
+      if (c !== cat) {
+        el.querySelectorAll('.pricing-item.selected').forEach(item => {
+          item.classList.remove('selected');
+          selectedLabels.delete(item.dataset.label);
+        });
+        el.style.display = 'none';
+      } else {
+        el.style.display = '';
+      }
+    });
+    updateTotal();
+    updateSummary();
+  }
+  function toggleSelect(id) {
+    const wrap = document.getElementById(id);
+    const list = wrap.querySelector('.custom-select-list');
+    const btn = wrap.querySelector('.custom-select-btn');
+    const isOpen = list.classList.contains('open');
+    // 他を全部閉じる
+    document.querySelectorAll('.custom-select-list').forEach(l => l.classList.remove('open'));
+    document.querySelectorAll('.custom-select-btn').forEach(b => b.classList.remove('open'));
+    if (!isOpen) { list.classList.add('open'); btn.classList.add('open'); }
+  }
+  function selectOption(id, value) {
+    const wrap = document.getElementById(id);
+    const input = wrap.querySelector('input[type="hidden"]');
+    const btn = wrap.querySelector('.custom-select-btn');
+    const list = wrap.querySelector('.custom-select-list');
+    input.value = value;
+    btn.textContent = value;
+    btn.classList.remove('placeholder', 'open');
+    list.classList.remove('open');
+    wrap.querySelectorAll('.custom-select-option').forEach(opt => {
+      opt.classList.toggle('selected', opt.textContent === value);
+    });
+    // ご用件によってセクション切り替え
+    if (id === 'inquirySelect') {
+      const isCommission = value === 'Commission（コミッション）';
+      const isIllust = value === 'イラストについて / About my works';
+      ['sectionMenu','sectionDetail'].forEach(sid => {
+        document.getElementById(sid).style.display = isCommission ? '' : 'none';
+      });
+      document.getElementById('sectionTerms').style.display = (isCommission || isIllust) ? '' : 'none';
+      document.getElementById('messageOnlySection').style.display = isCommission ? 'none' : '';
+      document.getElementById('usageFields').style.display = isCommission ? '' : 'none';
+    }
+  }
+  // 外側タップで閉じる
+  document.addEventListener('click', function(e) {
+    if (!e.target.closest('.custom-select')) {
+      document.querySelectorAll('.custom-select-list').forEach(l => l.classList.remove('open'));
+      document.querySelectorAll('.custom-select-btn').forEach(b => b.classList.remove('open'));
+    }
+  });
+  const COUPONS = {
+    'HUSKY100':  { discount: 1.00, label: '無料（100% OFF）' },
+    'CHATORA50': { discount: 0.50, label: '50% OFF' },
+    'WOLF30':    { discount: 0.30, label: '30% OFF' },
+    'SHIBA10':   { discount: 0.10, label: '10% OFF' },
+    'ORIONVIP':  { discount: 0.40, label: '常連様特別割引（40% OFF）' },
+  };
+  let appliedCoupon = null;
+
+  function applyCoupon() {
+    const code = document.getElementById('couponInput').value.trim().toUpperCase();
+    const result = document.getElementById('couponResult');
+    if (!code) { result.className = 'coupon-result error'; result.textContent = 'コードを入力してください / Please enter a code.'; return; }
+    if (COUPONS[code]) {
+      appliedCoupon = { code, ...COUPONS[code] };
+      result.className = 'coupon-result success';
+      result.textContent = `✓ クーポン「${code}」が適用されました（${COUPONS[code].label}）`;
+      updateTotal();
+    } else {
+      appliedCoupon = null;
+      result.className = 'coupon-result error';
+      result.textContent = '✕ クーポンコードが正しくありません / Invalid coupon code.';
+      updateTotal();
+    }
+  }
+
+  const selectedLabels = new Map();
+
+  function toggleItem(el) {
+    el.classList.toggle('selected');
+    const price = parseInt(el.dataset.price) || 0;
+    const label = el.dataset.label;
+    if (el.classList.contains('selected')) {
+      const qty = el.querySelector('input[type="number"]');
+      selectedLabels.set(label, { price, qty: qty ? parseInt(qty.value)||1 : 1 });
+    } else {
+      selectedLabels.delete(label);
+    }
+    updateTotal(); updateSummary();
+  }
+
+  function updateTotal() {
+    document.querySelectorAll('.pricing-item.selected').forEach(el => {
+      const label = el.dataset.label;
+      const price = parseInt(el.dataset.price) || 0;
+      const qtyInput = el.querySelector('input[type="number"]');
+      const qty = qtyInput ? parseInt(qtyInput.value)||1 : 1;
+      selectedLabels.set(label, { price, qty });
+    });
+    let subtotal = 0;
+    selectedLabels.forEach(v => { subtotal += v.price * v.qty; });
+    const amountEl = document.getElementById('totalAmount');
+    const originalEl = document.getElementById('totalOriginal');
+    if (appliedCoupon && subtotal > 0) {
+      const discounted = Math.floor(subtotal * (1 - appliedCoupon.discount));
+      originalEl.style.display = 'inline';
+      originalEl.textContent = '¥' + subtotal.toLocaleString('ja-JP');
+      amountEl.textContent = discounted === 0 ? '¥0（無料 / Free）' : '¥' + discounted.toLocaleString('ja-JP');
+    } else {
+      originalEl.style.display = 'none';
+      amountEl.textContent = subtotal > 0 ? '¥' + subtotal.toLocaleString('ja-JP') : '¥0';
+    }
+    updateSummary();
+  }
+
+  function updateSummary() {
+    const summary = document.getElementById('selectedSummary');
+    const list = document.getElementById('selectedList');
+    if (selectedLabels.size === 0) { summary.style.display = 'none'; return; }
+    summary.style.display = 'block';
+    let html = '';
+    selectedLabels.forEach((v, label) => { html += `<div class="summary-item">${label}${v.qty > 1 ? ' × ' + v.qty : ''}</div>`; });
+    list.innerHTML = html;
+  }
+
+  document.querySelectorAll('.qty-wrap input[type="number"]').forEach(input => {
+    input.addEventListener('click', e => e.stopPropagation());
+    input.addEventListener('change', updateTotal);
+  });
+
+  document.getElementById('couponInput').addEventListener('keydown', e => { if (e.key === 'Enter') { e.preventDefault(); applyCoupon(); } });
+
+  document.querySelectorAll('input[name="usage_type"]').forEach(radio => {
+    radio.addEventListener('change', function() {
+      document.getElementById('commercialNote').style.display = this.value === 'commercial' ? 'block' : 'none';
+    });
+  });
+
+  document.getElementById('deadline').min = new Date().toISOString().split('T')[0];
+
+  // 確認画面を表示
+  function showConfirm() {
+    const form = document.getElementById('commissionForm');
+    const isCommission = document.getElementById('inquiryValue')?.value === 'Commission（コミッション）';
+    const checks = ['agree_caution', 'agree_terms'];
+    let ok = true;
+    checks.forEach(n => { if (!form.elements[n]?.checked) ok = false; });
+    if (!document.getElementById('inquiryValue')?.value) ok = false;
+    if (isCommission) {
+      ['name','email','usage_purpose','detail'].forEach(n => { if (!form.elements[n]?.value.trim()) ok = false; });
+    } else {
+      ['name','email'].forEach(n => { if (!form.elements[n]?.value.trim()) ok = false; });
+      if (!document.getElementById('messageOnlyText')?.value.trim()) ok = false;
+    }
+    if (!ok) { alert('必須項目をご確認ください / Please fill in all required fields.'); return; }
+
+    let menuLines = [];
+    selectedLabels.forEach((v, label) => { menuLines.push(label + (v.qty > 1 ? ' × ' + v.qty : '')); });
+    const mediaChecked = [...form.querySelectorAll('input[name="media[]"]:checked')].map(el => el.value);
+    const mediaMap = { sns:'SNS・ブログ', stream:'配信・動画', print:'印刷物・グッズ', personal:'個人保存用', other:'その他' };
+
+    let rows;
+    if (isCommission) {
+      rows = [
+        ['お名前 / Name', form.elements['name'].value],
+        ['メールアドレス / Email', form.elements['email'].value],
+        ['SNSユーザー名 / SNS', form.elements['sns']?.value || '未記入'],
+        ['ご用件 / Purpose', document.getElementById('inquiryValue').value],
+        ['選択メニュー / Items', menuLines.length ? menuLines.join('\n') : '未選択'],
+        ['クーポン / Coupon', appliedCoupon ? `${appliedCoupon.code}（${appliedCoupon.label}）` : 'なし'],
+        ['利用範囲 / Usage', form.elements['usage_type']?.value === 'commercial' ? '商用利用（要見積）' : '個人利用'],
+        ['使用媒体 / Platform', mediaChecked.map(v => mediaMap[v] || v).join('、') || '未選択'],
+        ['使用用途 / Use', form.elements['usage_purpose'].value],
+        ['ご依頼の詳細 / Details', form.elements['detail'].value],
+        ['納品時期 / Timeframe', document.getElementById('slotValue')?.value || '未選択'],
+        ['その他ご要望 / Notes', form.elements['extra']?.value || ''],
+      ];
+    } else {
+      rows = [
+        ['お名前 / Name', form.elements['name'].value],
+        ['メールアドレス / Email', form.elements['email'].value],
+        ['SNSユーザー名 / SNS', form.elements['sns']?.value || '未記入'],
+        ['ご用件 / Purpose', document.getElementById('inquiryValue').value],
+        ['メッセージ / Message', document.getElementById('messageOnlyText').value],
+      ];
+    }
+
+    const table = document.getElementById('confirmTable');
+    table.innerHTML = rows.map(([th, td]) => td ? `<tr><th>${th}</th><td>${td}</td></tr>` : '').join('');
+    document.getElementById('confirmTotal').textContent = isCommission ? document.getElementById('totalAmount').textContent : '―';
+    document.getElementById('confirmOverlay').classList.add('show');
+    window.scrollTo(0, 0);
+  }
+
+  function hideConfirm() {
+    document.getElementById('confirmOverlay').classList.remove('show');
+    window.scrollTo(0, 0);
+  }
+
+  async function doSubmit() {
+    const btn = document.getElementById('confirmSendBtn');
+    btn.textContent = '送信中... / Sending...'; btn.disabled = true;
+
+    const form = document.getElementById('commissionForm');
+    const isCommission = document.getElementById('inquiryValue')?.value === 'Commission（コミッション）';
+    let menuSummary = '';
+    selectedLabels.forEach((v, label) => { menuSummary += `${label}${v.qty > 1 ? ' × ' + v.qty : ''}\n`; });
+
+    const formData = new FormData();
+    formData.append('お名前 / Name', form.elements['name'].value);
+    formData.append('メールアドレス / Email', form.elements['email'].value);
+    formData.append('SNSユーザー名 / SNS Handle', form.elements['sns']?.value || '未記入 / N/A');
+    formData.append('ご用件 / Purpose', document.getElementById('inquiryValue').value);
+
+    if (isCommission) {
+      formData.append('選択メニュー / Selected Items', menuSummary || '未選択 / None');
+      formData.append('お見積もり目安 / Estimated Total', document.getElementById('totalAmount').textContent);
+      formData.append('クーポンコード / Coupon', appliedCoupon ? `${appliedCoupon.code}（${appliedCoupon.label}）` : 'なし / None');
+      formData.append('利用範囲 / Usage Type', form.elements['usage_type']?.value === 'commercial' ? '商用利用（要見積）/ Commercial' : '個人利用 / Personal');
+      formData.append('使用用途 / Intended Use', form.elements['usage_purpose'].value);
+      formData.append('ご依頼の詳細 / Request Details', form.elements['detail'].value);
+      formData.append('納品時期 / Timeframe', document.getElementById('slotValue')?.value || '未選択 / N/A');
+      formData.append('その他ご要望 / Additional Notes', form.elements['extra']?.value || '');
+      formData.append('参考画像 / Reference Images', 'メール返信またはBluesky DMにて送付予定 / To be sent via email or Bluesky DM');
+    } else {
+      formData.append('メッセージ / Message', document.getElementById('messageOnlyText').value);
+    }
+
+    formData.append('_subject', `【${document.getElementById('inquiryValue').value}】${form.elements['name'].value}`);
+    formData.append('_language', 'ja');
+
+    try {
+      const res = await fetch('https://formspree.io/f/mgoqygev', { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } });
+      if (res.ok) {
+        document.getElementById('confirmOverlay').classList.remove('show');
+        document.getElementById('successOverlay').classList.add('show');
+        window.scrollTo(0, 0);
+      } else {
+        alert('送信に失敗しました / Submission failed. Please contact me via DM.');
+        btn.textContent = 'この内容で送信する / Send'; btn.disabled = false;
+      }
+    } catch(err) {
+      alert('通信エラー / Network error. Please contact me via DM.');
+      btn.textContent = 'この内容で送信する / Send'; btn.disabled = false;
+    }
+  }
+</script>
+</body>
+</html>
