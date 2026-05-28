@@ -685,7 +685,7 @@
   <div class="success-icon">✓</div>
   <h2>送信しました</h2>
   <p>お見積もりのご依頼ありがとうございます。<br>内容を確認のうえ、3日以内にメールにてご連絡いたします。<br><span style="font-family:'DM Mono',monospace;font-size:12px">Thank you! I'll be in touch within 3 business days.</span></p>
-  <div style="margin-top:20px; padding:16px 20px; background:#fff8f0; border:1px solid var(--accent-muted); border-left:3px solid var(--accent); text-align:left; font-size:13px; line-height:1.9; color:var(--text-muted); max-width:480px;">
+  <div id="successImageBlock" style="display:none; margin-top:20px; padding:16px 20px; background:#fff8f0; border:1px solid var(--accent-muted); border-left:3px solid var(--accent); text-align:left; font-size:13px; line-height:1.9; color:var(--text-muted); max-width:480px;">
     📎 参考画像がある方は下記フォームよりお送りください。ない方はそのまま画面を閉じてください。<br>
     <span style="font-family:'DM Mono',monospace;font-size:11px">If you have reference images, please upload them below. If not, feel free to close this page.</span><br>
     <a href="https://forms.gle/k9kghbZdk27beWTv8" target="_blank" rel="noopener" style="display:inline-block;margin-top:8px;color:var(--accent);font-family:'DM Mono',monospace;font-size:12px;text-decoration:none;border:1px solid var(--accent-muted);padding:6px 14px;">
@@ -955,6 +955,7 @@
       const res = await fetch('https://formspree.io/f/mgoqygev', { method: 'POST', body: formData, headers: { 'Accept': 'application/json' } });
       if (res.ok) {
         document.getElementById('confirmOverlay').classList.remove('show');
+        document.getElementById('successImageBlock').style.display = isCommission ? '' : 'none';
         document.getElementById('successOverlay').classList.add('show');
         window.scrollTo(0, 0);
       } else {
