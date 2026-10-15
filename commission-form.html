@@ -277,6 +277,7 @@
           <button type="button" class="custom-select-btn placeholder" id="inquiryBtn" onclick="toggleSelect('inquirySelect')">― お選びください / Please select ―</button>
           <div class="custom-select-list" id="inquiryList">
             <div class="custom-select-option" onclick="selectOption('inquirySelect','Commission（コミッション）')">Commission（コミッション）</div>
+            <div class="custom-select-option" onclick="selectOption('inquirySelect','漫画アシスタント業務 / Manga Assistant')">漫画アシスタント業務 / Manga Assistant</div>
             <div class="custom-select-option" onclick="selectOption('inquirySelect','ご相談 / Inquiry')">ご相談 / Inquiry</div>
             <div class="custom-select-option" onclick="selectOption('inquirySelect','イラストについて / About my works')">イラストについて / About my works</div>
             <div class="custom-select-option" onclick="selectOption('inquirySelect','その他 / Other')">その他 / Other</div>
@@ -320,6 +321,87 @@
       <div class="field">
         <label class="field-label"><span class="ja">メッセージ <span class="req">*</span></span><span class="en">Your Message</span></label>
         <textarea name="message_only" id="messageOnlyText" style="min-height:180px" placeholder="ご自由にどうぞ / Feel free to write anything"></textarea>
+      </div>
+    </div>
+
+    <!-- 03 漫画アシスタント業務 -->
+    <div id="assistantSection" style="display:none;" class="section">
+      <div class="section-title">03 &nbsp; 漫画アシスタント業務 <span class="en">/ Manga Assistant Work</span></div>
+      <div style="background:#fff8f0;border:1px solid var(--accent-muted);border-left:3px solid var(--accent);padding:14px 16px;font-size:13px;line-height:1.9;color:var(--text-muted);margin-bottom:20px;">
+        <strong style="font-size:13px;color:var(--accent);">漫画制作サポートのご依頼・お見積もり</strong><br>
+        ベタ塗り・トーン貼り・背景制作・文字入れ・効果線などの仕上げ作業を承っております。単発〜継続案件、個人制作・同人誌・Web漫画など用途に合わせて柔軟に対応いたします。<br>
+        <span style="font-family:'DM Mono',monospace;font-size:11px;">Offering manga finishing work including flatting, tone, backgrounds, and effects. Open to both one-time and ongoing projects.</span><br><br>
+        <strong style="font-size:12px;">使用ソフト / Software:</strong> Procreate・アイビスペイント（ibisPaint）<br>
+        <span style="font-size:12px;color:var(--text-muted);">CLIP STUDIO PAINTなど上記以外のソフトについても、作業内容・ファイル形式を確認のうえご相談いたします。</span>
+      </div>
+
+      <div class="field">
+        <label class="field-label"><span class="ja">ご希望の作業内容 <span class="req">*</span></span><span class="en">Type of Work (check all that apply)</span></label>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;">
+          <label class="check-item"><input type="checkbox" name="assist_work[]" value="ベタ塗り"> ベタ塗り<span class="en">Flatting</span></label>
+          <label class="check-item"><input type="checkbox" name="assist_work[]" value="トーン貼り"> トーン貼り<span class="en">Screen Tones</span></label>
+          <label class="check-item"><input type="checkbox" name="assist_work[]" value="背景制作"> 背景制作<span class="en">Backgrounds</span></label>
+          <label class="check-item"><input type="checkbox" name="assist_work[]" value="文字入れ・効果線・仕上げ"> 文字入れ・効果線・仕上げ<span class="en">Text / Effects / Finishing</span></label>
+          <label class="check-item"><input type="checkbox" name="assist_work[]" value="その他"> その他<span class="en">Other</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label"><span class="ja">ご依頼の種類</span><span class="en">Type of Request</span></label>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;">
+          <label class="check-item"><input type="radio" name="assist_type" value="単発のご依頼"> 単発のご依頼<span class="en">One-time</span></label>
+          <label class="check-item"><input type="radio" name="assist_type" value="継続的なご依頼"> 継続的なご依頼<span class="en">Ongoing</span></label>
+          <label class="check-item"><input type="radio" name="assist_type" value="まずは相談したい"> まずは相談したい<span class="en">Just consulting</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label"><span class="ja">作品の用途</span><span class="en">Purpose of the Work</span></label>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;">
+          <label class="check-item"><input type="checkbox" name="assist_usage[]" value="オリジナル漫画"> オリジナル漫画<span class="en">Original</span></label>
+          <label class="check-item"><input type="checkbox" name="assist_usage[]" value="同人誌"> 同人誌<span class="en">Doujinshi</span></label>
+          <label class="check-item"><input type="checkbox" name="assist_usage[]" value="Web漫画"> Web漫画<span class="en">Webcomic</span></label>
+          <label class="check-item"><input type="checkbox" name="assist_usage[]" value="商業漫画"> 商業漫画<span class="en">Commercial</span></label>
+          <label class="check-item"><input type="checkbox" name="assist_usage[]" value="その他"> その他<span class="en">Other</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label"><span class="ja">ページ数・作業量の目安（任意）</span><span class="en">Estimated Pages / Volume (optional)</span></label>
+        <input type="text" name="assist_pages" placeholder="例：8ページ、週2〜3ページ程度 / e.g. 8 pages, approx. 2–3 pages/week">
+      </div>
+
+      <div class="field">
+        <label class="field-label"><span class="ja">希望納期・作業開始時期（任意）</span><span class="en">Preferred Deadline / Start Date (optional)</span></label>
+        <input type="text" name="assist_deadline" placeholder="例：11月末、できるだけ早く / e.g. end of November, ASAP">
+      </div>
+
+      <div class="field">
+        <label class="field-label"><span class="ja">使用ソフト・ファイル形式</span><span class="en">Software & File Format</span></label>
+        <div style="display:flex;flex-wrap:wrap;gap:8px;margin-top:6px;">
+          <label class="check-item"><input type="checkbox" name="assist_software[]" value="Procreate"> Procreate</label>
+          <label class="check-item"><input type="checkbox" name="assist_software[]" value="アイビスペイント"> アイビスペイント</label>
+          <label class="check-item"><input type="checkbox" name="assist_software[]" value="CLIP STUDIO PAINT"> CLIP STUDIO PAINT</label>
+          <label class="check-item"><input type="checkbox" name="assist_software[]" value="Photoshop / PSD"> Photoshop / PSD</label>
+          <label class="check-item"><input type="checkbox" name="assist_software[]" value="その他"> その他<span class="en">Other</span></label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label class="field-label"><span class="ja">作品のURL・参考資料（任意）</span><span class="en">Work URL / Reference (optional)</span></label>
+        <input type="text" name="assist_url" placeholder="https://...">
+      </div>
+
+      <div class="field">
+        <label class="field-label"><span class="ja">詳細・ご要望・その他<span class="req">*</span></span><span class="en">Details & Notes</span></label>
+        <textarea name="assist_detail" id="assistDetail" style="min-height:180px" placeholder="作業範囲・仕上がりのイメージ・予算感などをご自由にお書きください。&#10;Feel free to describe the work scope, style, budget, or anything else."></textarea>
+      </div>
+
+      <div style="background:#fff8f0;border:1px solid var(--accent-muted);border-left:3px solid var(--accent);padding:12px 16px;font-size:12px;line-height:1.8;color:var(--text-muted);margin-top:8px;">
+        ※ 作業内容・納期・報酬については、事前にご相談・合意のうえで制作を開始いたします。<br>
+        ※ 使用ソフトやファイル形式によっては対応できない場合がございます。<br>
+        ※ フォームの送信時点では、ご依頼の確定とはなりません。<br>
+        <span style="font-family:'DM Mono',monospace;font-size:11px;">Submission does not confirm the order. Details will be discussed before work begins.</span>
       </div>
     </div>
 
@@ -754,12 +836,14 @@
     // ご用件によってセクション切り替え
     if (id === 'inquirySelect') {
       const isCommission = value === 'Commission（コミッション）';
+      const isAssistant = value === '漫画アシスタント業務 / Manga Assistant';
       const isIllust = value === 'イラストについて / About my works';
       ['sectionMenu','sectionDetail'].forEach(sid => {
         document.getElementById(sid).style.display = isCommission ? '' : 'none';
       });
       document.getElementById('sectionTerms').style.display = (isCommission || isIllust) ? '' : 'none';
-      document.getElementById('messageOnlySection').style.display = isCommission ? 'none' : '';
+      document.getElementById('messageOnlySection').style.display = (!isCommission && !isAssistant) ? '' : 'none';
+      document.getElementById('assistantSection').style.display = isAssistant ? '' : 'none';
       document.getElementById('usageFields').style.display = isCommission ? '' : 'none';
     }
   }
@@ -864,12 +948,18 @@
   function showConfirm() {
     const form = document.getElementById('commissionForm');
     const isCommission = document.getElementById('inquiryValue')?.value === 'Commission（コミッション）';
+    const isAssistant = document.getElementById('inquiryValue')?.value === '漫画アシスタント業務 / Manga Assistant';
     const checks = ['agree_caution', 'agree_terms'];
     let ok = true;
     checks.forEach(n => { if (!form.elements[n]?.checked) ok = false; });
     if (!document.getElementById('inquiryValue')?.value) ok = false;
     if (isCommission) {
       ['name','email','usage_purpose','detail'].forEach(n => { if (!form.elements[n]?.value.trim()) ok = false; });
+    } else if (isAssistant) {
+      ['name','email'].forEach(n => { if (!form.elements[n]?.value.trim()) ok = false; });
+      const assistWorkChecked = form.querySelectorAll('input[name="assist_work[]"]:checked').length;
+      if (!assistWorkChecked) ok = false;
+      if (!form.elements['assist_detail']?.value.trim()) ok = false;
     } else {
       ['name','email'].forEach(n => { if (!form.elements[n]?.value.trim()) ok = false; });
       if (!document.getElementById('messageOnlyText')?.value.trim()) ok = false;
@@ -896,6 +986,25 @@
         ['ご依頼の詳細 / Details', form.elements['detail'].value],
         ['納品時期 / Timeframe', document.getElementById('slotValue')?.value || '未選択'],
         ['その他ご要望 / Notes', form.elements['extra']?.value || ''],
+      ];
+    } else if (isAssistant) {
+      const assistWork = [...form.querySelectorAll('input[name="assist_work[]"]:checked')].map(el => el.value);
+      const assistUsage = [...form.querySelectorAll('input[name="assist_usage[]"]:checked')].map(el => el.value);
+      const assistSoftware = [...form.querySelectorAll('input[name="assist_software[]"]:checked')].map(el => el.value);
+      const assistType = form.elements['assist_type']?.value || '未選択';
+      rows = [
+        ['お名前 / Name', form.elements['name'].value],
+        ['メールアドレス / Email', form.elements['email'].value],
+        ['SNSユーザー名 / SNS', form.elements['sns']?.value || '未記入'],
+        ['ご用件 / Purpose', document.getElementById('inquiryValue').value],
+        ['作業内容 / Work Type', assistWork.join('、') || '未選択'],
+        ['依頼の種類 / Request Type', assistType],
+        ['作品用途 / Usage', assistUsage.join('、') || '未選択'],
+        ['ページ数・作業量 / Volume', form.elements['assist_pages']?.value || '未記入'],
+        ['希望納期 / Deadline', form.elements['assist_deadline']?.value || '未記入'],
+        ['使用ソフト / Software', assistSoftware.join('、') || '未選択'],
+        ['作品URL / URL', form.elements['assist_url']?.value || '未記入'],
+        ['詳細・ご要望 / Details', form.elements['assist_detail']?.value || ''],
       ];
     } else {
       rows = [
@@ -925,6 +1034,7 @@
 
     const form = document.getElementById('commissionForm');
     const isCommission = document.getElementById('inquiryValue')?.value === 'Commission（コミッション）';
+    const isAssistant = document.getElementById('inquiryValue')?.value === '漫画アシスタント業務 / Manga Assistant';
     let menuSummary = '';
     selectedLabels.forEach((v, label) => { menuSummary += `${label}${v.qty > 1 ? ' × ' + v.qty : ''}\n`; });
 
@@ -944,6 +1054,18 @@
       formData.append('納品時期 / Timeframe', document.getElementById('slotValue')?.value || '未選択 / N/A');
       formData.append('その他ご要望 / Additional Notes', form.elements['extra']?.value || '');
       formData.append('参考画像 / Reference Images', 'メール返信またはBluesky DMにて送付予定 / To be sent via email or Bluesky DM');
+    } else if (isAssistant) {
+      const assistWork = [...form.querySelectorAll('input[name="assist_work[]"]:checked')].map(el => el.value);
+      const assistUsage = [...form.querySelectorAll('input[name="assist_usage[]"]:checked')].map(el => el.value);
+      const assistSoftware = [...form.querySelectorAll('input[name="assist_software[]"]:checked')].map(el => el.value);
+      formData.append('作業内容 / Work Type', assistWork.join('、') || '未選択');
+      formData.append('依頼の種類 / Request Type', form.elements['assist_type']?.value || '未選択');
+      formData.append('作品用途 / Usage', assistUsage.join('、') || '未選択');
+      formData.append('ページ数・作業量 / Volume', form.elements['assist_pages']?.value || '未記入');
+      formData.append('希望納期 / Deadline', form.elements['assist_deadline']?.value || '未記入');
+      formData.append('使用ソフト / Software', assistSoftware.join('、') || '未選択');
+      formData.append('作品URL / URL', form.elements['assist_url']?.value || '未記入');
+      formData.append('詳細・ご要望 / Details', form.elements['assist_detail']?.value || '');
     } else {
       formData.append('メッセージ / Message', document.getElementById('messageOnlyText').value);
     }
