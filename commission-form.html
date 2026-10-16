@@ -462,6 +462,16 @@
       </div>
 
       <div class="field">
+        <label class="field-label"><span class="ja">原稿の状態（任意）</span><span class="en">Manuscript Stage (optional)</span></label>
+        <div class="radio-group">
+          <label class="radio-item"><input type="radio" name="assist_stage" value="ネーム段階"> ネーム段階<span class="en">Rough storyboard (name) stage</span></label>
+          <label class="radio-item"><input type="radio" name="assist_stage" value="下描き済み（線画前）"> 下描き済み（線画前）<span class="en">Rough sketch complete (pre-inking)</span></label>
+          <label class="radio-item"><input type="radio" name="assist_stage" value="ペン入れ済み（仕上げ作業のみ）"> ペン入れ済み（仕上げ作業のみ）<span class="en">Inked (finishing work only)</span></label>
+          <label class="radio-item"><input type="radio" name="assist_stage" value="その他・未定"> その他・未定<span class="en">Other / Not sure yet</span></label>
+        </div>
+      </div>
+
+      <div class="field">
         <label class="field-label"><span class="ja">ページ数・作業量の目安（任意）</span><span class="en">Estimated Pages / Volume (optional)</span></label>
         <input type="text" name="assist_pages" placeholder="例：8ページ、週2〜3ページ程度 / e.g. 8 pages, approx. 2–3 pages/week">
       </div>
@@ -1145,6 +1155,7 @@
         ['作業内容 / Work Type', assistWork.join('、') || '未選択'],
         ['依頼の種類 / Request Type', assistType],
         ['作品用途 / Usage', assistUsage.join('、') || '未選択'],
+        ['原稿の状態 / Stage', form.elements['assist_stage']?.value || '未選択'],
         ['ページ数・作業量 / Volume', form.elements['assist_pages']?.value || '未記入'],
         ['希望納期 / Deadline', form.elements['assist_deadline']?.value || '未記入'],
         ['使用ソフト / Software', assistSoftware.join('、') || '未選択'],
@@ -1206,6 +1217,7 @@
       formData.append('作業内容 / Work Type', assistWork.join('、') || '未選択');
       formData.append('依頼の種類 / Request Type', form.elements['assist_type']?.value || '未選択');
       formData.append('作品用途 / Usage', assistUsage.join('、') || '未選択');
+      formData.append('原稿の状態 / Manuscript Stage', form.elements['assist_stage']?.value || '未選択');
       formData.append('ページ数・作業量 / Volume', form.elements['assist_pages']?.value || '未記入');
       formData.append('希望納期 / Deadline', form.elements['assist_deadline']?.value || '未記入');
       formData.append('使用ソフト / Software', assistSoftware.join('、') || '未選択');
