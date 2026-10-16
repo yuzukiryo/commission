@@ -358,6 +358,7 @@
     </div>
 
     <!-- 02 注意事項 -->
+    <!-- コミッション用注意事項 -->
     <div class="section" id="sectionTerms" style="display:none">
       <div class="section-title">02 &nbsp; 注意事項 <span class="en">/ Terms &amp; Conditions</span></div>
       <div class="field">
@@ -378,19 +379,33 @@
           ❌ 営利目的での転載 ／ 改変・トレース・自作発言 ／ 無断でのグッズ制作・販売<br>
           <span style="font-family:'DM Mono',monospace;font-size:11px">✅ Personal use / private study / sharing with credit &nbsp; ❌ Commercial repost / tracing / unauthorized merch</span><br><br>
           ⚠ 公開しているイラストはフリー素材ではありません。/ My artwork is NOT free to use.
-          <h4 id="assistantTermsTitle" style="display:none">漫画アシスタント業務について <span class="en">/ Manga Assistant Work</span></h4>
-          <div id="assistantTermsContent" style="display:none">
+        </div>
+        <label class="consent-block">
+          <input type="checkbox" name="agree_caution" required>
+          <span class="consent-text">注意事項・禁止事項を確認し、同意します。<br><span style="font-family:'DM Mono',monospace;font-size:11px">I have read and agree to the terms above.</span></span>
+        </label>
+      </div>
+    </div>
+
+    <!-- 漫画アシスタント用注意事項 -->
+    <div class="section" id="sectionTermsAssistant" style="display:none">
+      <div class="section-title">02 &nbsp; 注意事項 <span class="en">/ Terms &amp; Conditions</span></div>
+      <div class="field">
+        <div class="policy-box">
+          <h4>漫画アシスタント業務について <span class="en">/ Manga Assistant Work</span></h4>
           ・未公開作品・制作途中の原稿など、<strong>秘密保持が必要な案件もご相談いただけます。</strong><br>
           <span style="font-family:'DM Mono',monospace;font-size:11px">· Projects requiring confidentiality (unpublished works, manuscripts in progress) are welcome.</span><br>
           ・原稿や制作資料の取り扱い、秘密保持、実績公開の可否については、<strong>作業開始前に確認・合意いたします。</strong><br>
           <span style="font-family:'DM Mono',monospace;font-size:11px">· Handling of materials, confidentiality terms, and portfolio use will be agreed upon before work begins.</span><br>
           ・許可のない作品については、ポートフォリオ・SNSへ無断掲載いたしません。<br>
           <span style="font-family:'DM Mono',monospace;font-size:11px">· Works without permission will not be posted to my portfolio or SNS.</span>
-          </div>
+          <h4>禁止事項 <span class="en">/ Prohibited Uses</span></h4>
+          ・納品データの無断転用・無断配布・AI学習への利用<br>
+          <span style="font-family:'DM Mono',monospace;font-size:11px">· Unauthorized redistribution of deliverables / AI training use — strictly prohibited.</span>
         </div>
         <label class="consent-block">
           <input type="checkbox" name="agree_caution" required>
-          <span class="consent-text">注意事項・禁止事項を確認し、同意します。<br><span style="font-family:'DM Mono',monospace;font-size:11px">I have read and agree to the terms above.</span></span>
+          <span class="consent-text">注意事項を確認し、同意します。<br><span style="font-family:'DM Mono',monospace;font-size:11px">I have read and agree to the terms above.</span></span>
         </label>
       </div>
     </div>
@@ -969,11 +984,11 @@
       ['sectionMenu','sectionDetail'].forEach(sid => {
         document.getElementById(sid).style.display = isCommission ? '' : 'none';
       });
-      document.getElementById('sectionTerms').style.display = (isCommission || isIllust || isAssistant) ? '' : 'none';
+      document.getElementById('sectionTerms').style.display = (isCommission || isIllust) ? '' : 'none';
+      document.getElementById('sectionTermsAssistant').style.display = isAssistant ? '' : 'none';
       document.getElementById('messageOnlySection').style.display = (!isCommission && !isAssistant) ? '' : 'none';
       document.getElementById('assistantSection').style.display = isAssistant ? '' : 'none';
-      document.getElementById('assistantTermsTitle').style.display = isAssistant ? '' : 'none';
-      document.getElementById('assistantTermsContent').style.display = isAssistant ? '' : 'none';
+
       document.getElementById('usageFields').style.display = isCommission ? '' : 'none';
     }
   }
