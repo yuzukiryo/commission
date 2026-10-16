@@ -819,7 +819,7 @@
     <!-- 05 同意 -->
     <div class="section">
       <div class="section-title">05 &nbsp; 送信前の確認 <span class="en">/ Final Confirmation</span></div>
-      <div class="policy-box" style="max-height:120px; margin-bottom:16px">
+      <div class="policy-box" id="policyBox" style="max-height:120px; margin-bottom:16px">
         本フォームに記載いただいた個人情報は、コミッション依頼への対応にのみ使用します。第三者への提供はいたしません。制作物は実績としてポートフォリオ・SNSに掲載する場合があります。<br>
         <span style="font-family:'DM Mono',monospace;font-size:11px">Your personal information will only be used to process your commission inquiry and will not be shared with third parties. Finished works may be shared on my portfolio and SNS.</span>
       </div>
@@ -852,7 +852,7 @@
     <h2>入力内容の確認</h2>
     <div class="confirm-sub">PLEASE REVIEW YOUR REQUEST</div>
     <table class="confirm-table" id="confirmTable"></table>
-    <div class="confirm-total">
+    <div class="confirm-total" id="confirmTotalBlock">
       <div class="confirm-total-label">お見積もり目安 / Estimated Total</div>
       <div class="confirm-total-amount" id="confirmTotal"></div>
     </div>
@@ -860,7 +860,7 @@
       <button type="button" class="confirm-back-btn" onclick="hideConfirm()">← 修正する / Edit</button>
       <button type="button" class="confirm-send-btn" id="confirmSendBtn" onclick="doSubmit()">この内容で送信する / Send</button>
     </div>
-    <div class="confirm-notice">
+    <div class="confirm-notice" id="confirmNotice">
       送信後<strong>3営業日以内</strong>にメールにてご連絡いたします。<br>
       この画面をスクリーンショットして保存しておくと便利です📸<br>
       <span style="font-family:'DM Mono',monospace;font-size:11px">Feel free to screenshot this page for your records.</span>
@@ -1000,6 +1000,19 @@
       document.getElementById('assistantSection').style.display = isAssistant ? '' : 'none';
 
       document.getElementById('usageFields').style.display = isCommission ? '' : 'none';
+
+      // 送信前確認のポリシー文をアシスタント用に切り替え
+      const policyBox = document.getElementById('policyBox');
+      if (policyBox) {
+        if (isAssistant) {
+          policyBox.innerHTML = '本フォームに記載いただいた個人情報は、漫画アシスタント業務のご依頼への対応にのみ使用します。第三者への提供はいたしません。<br>'
+            + '<strong>未公開作品・制作中の原稿など、秘密保持が必要な情報は厳重に管理いたします。実績としての掲載・公開は、事前にご確認・合意した場合のみ行います。</strong><br>'
+            + '<span style="font-family:\'DM Mono\',monospace;font-size:11px">Your information will only be used for this inquiry. Confidentiality of unpublished works is strictly maintained. Works will only be posted publicly with prior consent.</span>';
+        } else {
+          policyBox.innerHTML = '本フォームに記載いただいた個人情報は、コミッション依頼への対応にのみ使用します。第三者への提供はいたしません。制作物は実績としてポートフォリオ・SNSに掲載する場合があります。<br>'
+            + '<span style="font-family:\'DM Mono\',monospace;font-size:11px">Your personal information will only be used to process your commission inquiry and will not be shared with third parties. Finished works may be shared on my portfolio and SNS.</span>';
+        }
+      }
     }
   }
   // 外側タップで閉じる
@@ -1174,7 +1187,32 @@
 
     const table = document.getElementById('confirmTable');
     table.innerHTML = rows.map(([th, td]) => td ? `<tr><th>${th}</th><td>${td}</td></tr>` : '').join('');
-    document.getElementById('confirmTotal').textContent = isCommission ? document.getElementById('totalAmount').textContent : '―';
+    // お見積もり合計欄：コミッション時のみ表示
+    const totalBlock = document.getElementById('confirmTotalBlock');
+    if (isCommission) {
+      document.getElementById('confirmTotal').textContent = document.getElementById('totalAmount').textContent;
+      totalBlock.style.display = '';
+    } else {
+      totalBlock.style.display = 'none';
+    }
+    // 確認画面サブタイトル切り替え
+    const confirmSub = document.querySelector('.confirm-sub');
+    if (confirmSub) {
+      confirmSub.textContent = isAssistant ? 'PLEASE REVIEW YOUR REQUEST' : 'PLEASE REVIEW YOUR REQUEST';
+    }
+    // confirm-notice切り替え
+    const confirmNotice = document.getElementById('confirmNotice');
+    if (confirmNotice) {
+      if (isAssistant) {
+        confirmNotice.innerHTML = '送信後<strong>3営業日以内</strong>にメールにてご連絡いたします。<br>'
+          + '<strong>・未公開作品・制作中の原稿は秘密保持の対象です。第三者への開示は一切行いません。</strong><br>'
+          + '・実績としてのSNS掲載・公開は、事前に確認・合意した場合のみ行います。<br>'
+          + '・詳細は打ち合わせの際にあらためてご確認いただけます。<br>'
+          + '<span style="font-family:\'DM Mono\',monospace;font-size:11px">Confidentiality of unpublished works is strictly maintained. Portfolio/SNS posting only with prior consent.</span>';
+      } else {
+        confirmNotice.innerHTML = '送信後<strong>3営業日以内</strong>にメールにてご連絡いたします。<br>この画面をスクリーンショットして保存しておくと便利です📸<br><span style="font-family:\'DM Mono\',monospace;font-size:11px">Feel free to screenshot this page for your records.</span>';
+      }
+    }
     document.getElementById('confirmOverlay').classList.add('show');
     window.scrollTo(0, 0);
   }
