@@ -546,6 +546,7 @@
             <div class="custom-select-option" onclick="selectCategory('chibi')">🐾 デフォルメキャラ / Chibi Character</div>
             <div class="custom-select-option" onclick="selectCategory('charadesign')">✏️ キャラクターデザイン / Character Design</div>
             <div class="custom-select-option" onclick="selectCategory('sns')">📱 SNS・配信アイテム / SNS &amp; Streaming Items</div>
+            <div class="custom-select-option" onclick="selectCategory('comic')">📖 マンガ・コミック / Comic</div>
           </div>
         </div>
       </div>
@@ -717,6 +718,26 @@
           </div>
         </div>
       </div>
+      <div id="grid-comic" style="display:none">
+        <div class="field">
+          <label class="field-label"><span class="ja">メニューを選択し、数量をご入力ください</span><span class="en">Select items and enter quantity</span></label>
+          <div class="pricing-grid">
+            <div class="pricing-category">Comic ／ 漫画・コミック</div>
+            <div class="pricing-item" data-price="15000" data-label="コミック / Comic" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">コミック <span class="en">Comic</span><small>ページ数・内容は相談のうえお見積もり / Pages &amp; details TBD — quote after discussion</small></div>
+              <div class="qty-wrap" style="visibility:hidden"><input type="number" min="1" max="99" value="1"><span>件</span></div>
+              <div class="pricing-price">¥15,000〜</div>
+            </div>
+            <div class="pricing-item" data-price="0" data-label="詳細なご要望（コミック）/ Custom Comic Request" onclick="toggleItem(this)">
+              <div class="pricing-check"></div>
+              <div class="pricing-name">詳細なご要望（コミック）<span class="en">Custom Comic Request</span><small>ページ数・カラーなど複雑なご依頼 / Complex requests — quote after discussion</small></div>
+              <div class="qty-wrap" style="visibility:hidden"><input type="number" min="1" max="99" value="1"><span>件</span></div>
+              <div class="pricing-price">要見積 / Quote</div>
+            </div>
+          </div>
+        </div>
+      </div>
 
       <div class="selected-summary" id="selectedSummary">
         <div class="summary-title">選択中のメニュー / Selected Items</div>
@@ -806,6 +827,10 @@
 
 【Additional notes / その他ご要望】
 </textarea>
+      </div>
+      <div class="field" id="comicScriptField" style="display:none">
+        <label class="field-label"><span class="ja">セリフ・ナレーション・文章（任意）</span><span class="en">Script / Dialogue / Narration (optional)</span></label>
+        <textarea name="comic_script" id="comicScriptArea" placeholder="セリフや文章がある場合はこちらにご入力ください。未定の場合は空欄で構いません。&#10;/ Enter any dialogue, narration or text for the comic. Leave blank if not yet decided."></textarea>
       </div>
       <div class="field">
         <label class="field-label"><span class="ja">参考画像について</span><span class="en">Reference Images</span></label>
@@ -963,7 +988,8 @@
       'illust': '🎨 イラスト（一枚絵）/ Illustration',
       'chibi': '🐾 デフォルメキャラ / Chibi Character',
       'charadesign': '✏️ キャラクターデザイン / Character Design',
-      'sns': '📱 SNS・配信アイテム / SNS & Streaming Items'
+      'sns': '📱 SNS・配信アイテム / SNS & Streaming Items',
+      'comic': '📖 マンガ・コミック / Comic'
     };
     // ボタンのテキストを更新して閉じる
     const btn = document.querySelector('#categorySelect .custom-select-btn');
@@ -972,7 +998,7 @@
     document.getElementById('categoryList').classList.remove('open');
     document.getElementById('categoryValue').value = cat;
     // グリッド切り替え
-    ['illust','sns','chibi','charadesign'].forEach(c => {
+    ['illust','sns','chibi','charadesign','comic'].forEach(c => {
       const el = document.getElementById('grid-' + c);
       if (c !== cat) {
         el.querySelectorAll('.pricing-item.selected').forEach(item => {
@@ -984,6 +1010,9 @@
         el.style.display = '';
       }
     });
+    // コミック選択時のみセリフ欄を表示
+    const scriptField = document.getElementById('comicScriptField');
+    if (scriptField) scriptField.style.display = (cat === 'comic') ? '' : 'none';
     updateTotal();
     updateSummary();
   }
@@ -1177,6 +1206,7 @@
         ['使用媒体 / Platform', mediaChecked.map(v => mediaMap[v] || v).join('、') || '未選択'],
         ['使用用途 / Use', form.elements['usage_purpose'].value],
         ['ご依頼の詳細 / Details', form.elements['detail'].value],
+        ...(form.elements['comic_script']?.value ? [['セリフ・文章 / Script', form.elements['comic_script'].value]] : []),
         ['納品時期 / Timeframe', document.getElementById('slotValue')?.value || '未選択'],
         ['その他ご要望 / Notes', form.elements['extra']?.value || ''],
       ];
@@ -1270,6 +1300,7 @@
       formData.append('利用範囲 / Usage Type', form.elements['usage_type']?.value === 'commercial' ? '商用利用（要見積）/ Commercial' : '個人利用 / Personal');
       formData.append('使用用途 / Intended Use', form.elements['usage_purpose'].value);
       formData.append('ご依頼の詳細 / Request Details', form.elements['detail'].value);
+      if (form.elements['comic_script']?.value) formData.append('セリフ・文章 / Script', form.elements['comic_script'].value);
       formData.append('納品時期 / Timeframe', document.getElementById('slotValue')?.value || '未選択 / N/A');
       formData.append('その他ご要望 / Additional Notes', form.elements['extra']?.value || '');
       formData.append('参考画像 / Reference Images', 'メール返信またはBluesky DMにて送付予定 / To be sent via email or Bluesky DM');
