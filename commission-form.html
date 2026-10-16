@@ -1140,9 +1140,11 @@
     const form = document.getElementById('commissionForm');
     const isCommission = document.getElementById('inquiryValue')?.value === 'Commission（コミッション）';
     const isAssistant = document.getElementById('inquiryValue')?.value === '漫画アシスタント業務 / Manga Assistant';
-    const checks = ['agree_caution', 'agree_terms'];
     let ok = true;
-    checks.forEach(n => { if (!form.elements[n]?.checked) ok = false; });
+    // agree_cautionは同名が複数あるので表示中のものを確認
+    const visibleCaution = [...form.querySelectorAll('input[name="agree_caution"]')].find(el => el.offsetParent !== null);
+    if (visibleCaution && !visibleCaution.checked) ok = false;
+    if (!form.elements['agree_terms']?.checked) ok = false;
     if (!document.getElementById('inquiryValue')?.value) ok = false;
     if (isCommission) {
       ['name','email','usage_purpose','detail'].forEach(n => { if (!form.elements[n]?.value.trim()) ok = false; });
