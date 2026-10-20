@@ -347,7 +347,7 @@
           <input type="hidden" name="inquiry" id="inquiryValue" required>
           <button type="button" class="custom-select-btn placeholder" id="inquiryBtn" onclick="toggleSelect('inquirySelect')">― お選びください / Please select ―</button>
           <div class="custom-select-list" id="inquiryList">
-            <div class="custom-select-option" onclick="selectOption('inquirySelect','Commission（コミッション）')">Commission（コミッション）</div>
+            <div class="custom-select-option" onclick="selectOption('inquirySelect','コミッション / Commission')">コミッション / Commission</div>
             <div class="custom-select-option" onclick="selectOption('inquirySelect','漫画アシスタント業務 / Manga Assistant')">漫画アシスタント業務 / Manga Assistant</div>
             <div class="custom-select-option" onclick="selectOption('inquirySelect','ご相談 / Inquiry')">ご相談 / Inquiry</div>
             <div class="custom-select-option" onclick="selectOption('inquirySelect','イラストについて / About my works')">イラストについて / About my works</div>
@@ -1070,7 +1070,7 @@
     });
     // ご用件によってセクション切り替え
     if (id === 'inquirySelect') {
-      const isCommission = value === 'Commission（コミッション）';
+      const isCommission = value === 'コミッション / Commission';
       const isAssistant = value === '漫画アシスタント業務 / Manga Assistant';
       const isIllust = value === 'イラストについて / About my works';
       ['sectionMenu','sectionDetail'].forEach(sid => {
@@ -1198,7 +1198,7 @@
   // 確認画面を表示
   function showConfirm() {
     const form = document.getElementById('commissionForm');
-    const isCommission = document.getElementById('inquiryValue')?.value === 'Commission（コミッション）';
+    const isCommission = document.getElementById('inquiryValue')?.value === 'コミッション / Commission';
     const isAssistant = document.getElementById('inquiryValue')?.value === '漫画アシスタント業務 / Manga Assistant';
     let ok = true;
     // agree_cautionは同名が複数あるので表示中のものを確認
@@ -1313,7 +1313,7 @@
     btn.textContent = '送信中... / Sending...'; btn.disabled = true;
 
     const form = document.getElementById('commissionForm');
-    const isCommission = document.getElementById('inquiryValue')?.value === 'Commission（コミッション）';
+    const isCommission = document.getElementById('inquiryValue')?.value === 'コミッション / Commission';
     const isAssistant = document.getElementById('inquiryValue')?.value === '漫画アシスタント業務 / Manga Assistant';
     let menuSummary = '';
     selectedLabels.forEach((v, label) => { menuSummary += `${label}${v.qty > 1 ? ' × ' + v.qty : ''}\n`; });
